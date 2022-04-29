@@ -1,5 +1,6 @@
-repos:
-- repo: https://github.com/odoosocius/pre-commit-test-hooks.git
-  rev: 22.3.0
-  hooks:
-    - id: check-decorator-value
+-   id: check-decorator-value
+    name: check decorator funid test
+    description: checks if test files have decorator funid test.
+    entry: check-decorator-value
+    language: python
+    types: [python]
