@@ -1,9 +1,7 @@
-from __future__ import annotations
 import argparse
-import io
 import re
-import tokenize
-from tokenize import tokenize as tokenize_tokenize
+import os.path
+from __future__ import annotations
 from typing import Sequence
 
 
@@ -33,12 +31,20 @@ def check_decorator(src, filename: str = '<unknown>') -> int:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*')
+    parser.add_argument(
+        '--django', default=False, action='store_true',
+        help='Use Django-style test naming pattern (test*.py)',
+    )
     args = parser.parse_args(argv)
     retval = 0
+    test_name_pattern = r'test.*\.py' if args.django else r'.*_test\.py'
     for filename in args.filenames:
-        with open(filename, 'rb') as f:
-            retval = check_decorator(f, filename=filename)
+        base = os.path.basename(filename)
+        if (
+                re.match(test_name_pattern, base) and
+                not base == '__init__.py' and
+                not base == 'conftest.py'
+        ):
+            with open(filename, 'rb') as f:
+                retval = check_decorator(f, filename=filename)
     return retval
-
-if __name__ == "__main__":
-    raise SystemExit(main())
