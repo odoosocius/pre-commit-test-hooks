@@ -46,7 +46,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(filename)
         if (
                 re.match(test_name_pattern, base) and
-                not base == '__init__.py' 
+                not base != '__init__.py' 
         ):
             print(filename)
             with open(filename, 'rb') as f:
