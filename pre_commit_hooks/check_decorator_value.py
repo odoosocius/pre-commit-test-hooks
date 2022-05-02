@@ -14,11 +14,8 @@ def check_decorator(src: bytes, filename: str = '<unknown>') -> int:
     file = src.readlines()
     missing_tag = False
     lastline = ""
-    print(file)
-    print(file.decode("utf-8"))
-    print(tokenize_tokenize(file))
     for line in file:
-        if re.search("^class.*:$", line):
+        if re.search("^class.*:$", line.decode("utf-8")):
             print(lastline)
             if (
                 lastline == ""
@@ -31,7 +28,7 @@ def check_decorator(src: bytes, filename: str = '<unknown>') -> int:
                 )
                 missing_tag = True
                 break
-        lastline = line
+        lastline = line.decode("utf-8")
         # print(lastline)
     return missing_tag
 
