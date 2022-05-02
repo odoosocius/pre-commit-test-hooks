@@ -19,7 +19,8 @@ def check_decorator(src: bytes,missing_tag,filename: str = '<unknown>') -> int:
             ):
                 index = file.index(line)
                 print(
-                    f'{'CD8103'} f'{filename}:  missing tag "funid_test"'
+                    f'(CD8103).'
+                    f'{filename}:  missing tag "funid_test"'
                     f'(on line {index}).',
                 )
                 missing_tag = True
