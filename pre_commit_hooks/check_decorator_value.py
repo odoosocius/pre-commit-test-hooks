@@ -1,8 +1,9 @@
+from __future__ import annotations
+from typing import Sequence
 import argparse
 import re
 import os.path
-from __future__ import annotations
-from typing import Sequence
+
 
 
 def check_decorator(src, filename: str = '<unknown>') -> int:
