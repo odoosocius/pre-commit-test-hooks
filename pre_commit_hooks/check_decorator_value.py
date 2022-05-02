@@ -48,4 +48,4 @@ def main(argv: Sequence[str] | None = None) -> int:
         ):
             with open(filename, 'rb') as f:
                 retval = check_decorator(f, filename=filename)
-    return retval
+    return True
