@@ -32,20 +32,14 @@ def check_decorator(src, filename: str = '<unknown>') -> int:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*')
-    parser.add_argument(
-        '--django', default=False, action='store_true',
-        help='Use Django-style test naming pattern (test*.py)',
-    )
     args = parser.parse_args(argv)
     print(args.filenames)
     retval = 0
-    test_name_pattern = r'test_.*\.py' if args.django else r'.*_test\.py'
     for filename in args.filenames:
         base = os.path.basename(filename)
         print("this is base ",base)
         print(filename)
-        print("pattern is ",test_name_pattern)
-        print(re.match(test_name_pattern, base))
+        print(re.match("^test.*py$", base))
         if (
                 re.match(test_name_pattern, base) and
                 base != '__init__.py' 
