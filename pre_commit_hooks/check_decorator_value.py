@@ -41,7 +41,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(filename)
         print(re.match("^test.*py$", base))
         if (
-                re.match(test_name_pattern, base) and
+                re.match("^test.*py$", base) and
                 base != '__init__.py' 
         ):
             print(filename)
