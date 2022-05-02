@@ -40,13 +40,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     retval = 0
     test_name_pattern = r'test.*\.py' if args.django else r'.*_test\.py'
     for filename in args.filenames:
-        print(filename)
         base = os.path.basename(filename)
         if (
                 re.match(test_name_pattern, base) and
-                not base == '__init__.py' and
-                not base == 'conftest.py'
+                not base == '__init__.py' 
         ):
+            print(filename)
             with open(filename, 'rb') as f:
                 retval = check_decorator(f, filename=filename)
     return True
