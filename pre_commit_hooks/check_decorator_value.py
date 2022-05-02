@@ -33,7 +33,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*')
     args = parser.parse_args(argv)
-    print(args.filenames)
     missing_tag = False
     for filename in args.filenames:
         base = os.path.basename(filename)
