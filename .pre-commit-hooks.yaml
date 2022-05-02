@@ -1,0 +1,6 @@
+-   id: check-decorator-value
+    name: check decorator funid test
+    description: checks if test files have decorator funid test.
+    entry: check-decorator-value
+    language: python
+    types: [python]
