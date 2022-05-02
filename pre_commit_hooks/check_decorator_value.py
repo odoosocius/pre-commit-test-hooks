@@ -39,14 +39,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     print(args.filenames)
     retval = 0
-    test_name_pattern = r'test.*\.py' if args.django else r'.*_test\.py'
+    test_name_pattern = r'test_.*\.py' if args.django else r'.*_test\.py'
     for filename in args.filenames:
         base = os.path.basename(filename)
         print("this is base ",base)
         print(filename)
+        print("pattern is ",test_name_pattern)
         if (
                 re.match(test_name_pattern, base) and
-                not base != '__init__.py' 
+                base != '__init__.py' 
         ):
             print(filename)
             with open(filename, 'rb') as f:
