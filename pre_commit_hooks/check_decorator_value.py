@@ -45,6 +45,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print("this is base ",base)
         print(filename)
         print("pattern is ",test_name_pattern)
+        print(re.match(test_name_pattern, base))
         if (
                 re.match(test_name_pattern, base) and
                 base != '__init__.py' 
