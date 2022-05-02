@@ -10,7 +10,7 @@ from typing import Sequence
 
 
 
-def check_decorator(src: str, filename: str = '<unknown>') -> int:
+def check_decorator(src: bytes, filename: str = '<unknown>') -> int:
     file = src.readlines()
     missing_tag = False
     lastline = ""
