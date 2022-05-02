@@ -6,7 +6,7 @@ import os.path
 
 
 
-def check_decorator(src, filename: str = '<unknown>') -> int:
+def check_decorator(src: str, filename: str = '<unknown>') -> int:
     file = src.readlines()
     missing_tag = False
     lastline = ""
