@@ -7,7 +7,7 @@ from typing import Sequence
 
 
 
-def check_decorator(src: bytes, filename: str = '<unknown>',missing_tag) -> int:
+def check_decorator(src: bytes,missing_tag,filename: str = '<unknown>') -> int:
     file = src.readlines()
     missing_tag = missing_tag
     lastline = ""
@@ -42,5 +42,5 @@ def main(argv: Sequence[str] | None = None) -> int:
                 base != '__init__.py' 
         ):
             with open(filename, 'rb') as f:
-                 missing_tag = check_decorator(f, filename=filename,missing_tag)
+                 missing_tag = check_decorator(f, missing_tag, filename=filename)
     return missing_tag
