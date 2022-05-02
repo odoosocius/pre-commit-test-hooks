@@ -1,5 +1,5 @@
 repos:
 - repo: https://github.com/odoosocius/pre-commit-test-hooks
-  rev: 4.2.1
+  rev: 4.2.2
   hooks:
     - id: check-decorator-value
