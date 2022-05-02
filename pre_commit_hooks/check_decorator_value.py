@@ -41,6 +41,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     test_name_pattern = r'test.*\.py' if args.django else r'.*_test\.py'
     for filename in args.filenames:
         base = os.path.basename(filename)
+        print("this is base ",base)
+        print(filename)
         if (
                 re.match(test_name_pattern, base) and
                 not base == '__init__.py' 
