@@ -37,6 +37,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         help='Use Django-style test naming pattern (test*.py)',
     )
     args = parser.parse_args(argv)
+    print(args.filenames)
     retval = 0
     test_name_pattern = r'test.*\.py' if args.django else r'.*_test\.py'
     for filename in args.filenames:
