@@ -1,8 +1,12 @@
 from __future__ import annotations
-from typing import Sequence
+
 import argparse
 import re
+import io
 import os.path
+import tokenize
+from tokenize import tokenize as tokenize_tokenize
+from typing import Sequence
 
 
 
@@ -10,6 +14,7 @@ def check_decorator(src: str, filename: str = '<unknown>') -> int:
     file = src.readlines()
     missing_tag = False
     lastline = ""
+    print(tokenize_tokenize(io.BytesIO(src).readline))
     for line in file:
         if re.search("^class.*:$", line):
             print(lastline)
