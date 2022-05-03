@@ -24,7 +24,7 @@ def check_decorator(src: bytes,missing_tag,filename: str = '<unknown>') -> int:
                     f'(on line {index}).',
                 )
                 missing_tag = True
-                break
+
         lastline = line.decode("utf-8")
         # print(lastline)
     return missing_tag
