@@ -34,15 +34,17 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     missing_tag = False
     for filename in args.filenames:
-        dir=os.path.dirname(filename)
+        dir = os.path.dirname(filename).split('/')
         print(dir)
-        base = os.path.basename(filename)
-        if (
-                re.match("^test.*py$", base) or
-                base == 'common.py'
-        ):
-            with open(filename, 'rb') as f:
-                missing_tag = check_decorator(
-                    f, missing_tag, filename=filename
-                )
+        if 'tests' in dir:
+            print("tests directory")
+            base = os.path.basename(filename)
+            if (
+                    re.match("^test.*py$", base) or
+                    base == 'common.py'
+            ):
+                with open(filename, 'rb') as f:
+                    missing_tag = check_decorator(
+                        f, missing_tag, filename=filename
+                    )
     return True
