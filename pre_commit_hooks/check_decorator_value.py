@@ -6,7 +6,6 @@ import os.path
 from typing import Sequence
 
 
-
 def check_decorator(src: bytes,missing_tag,filename: str = '<unknown>') -> int:
     file = src.readlines()
     missing_tag = missing_tag
@@ -15,18 +14,18 @@ def check_decorator(src: bytes,missing_tag,filename: str = '<unknown>') -> int:
         if re.search("^class.*:$", line.decode("utf-8")):
             if (
                 lastline == ""
-                or ('funid_test' not in lastline )
+                or ('"funid_test"' not in lastline)
+                or ("'funid_test'" not in lastline)
             ):
                 index = file.index(line)
                 print(
-                    f'(CD8103).'
+                    f'[CD813].'
                     f'{filename}:  missing tag "funid_test"'
                     f'(on line {index}).',
                 )
                 missing_tag = True
 
         lastline = line.decode("utf-8")
-        # print(lastline)
     return missing_tag
 
 
@@ -39,8 +38,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         base = os.path.basename(filename)
         if (
                 re.match("^test.*py$", base) and
-                base != '__init__.py' 
+                base != '__init__.py'
         ):
             with open(filename, 'rb') as f:
-                 missing_tag = check_decorator(f, missing_tag, filename=filename)
+                missing_tag = check_decorator(
+                    f, missing_tag, filename=filename
+                )
     return missing_tag
