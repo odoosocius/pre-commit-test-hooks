@@ -9,12 +9,13 @@ from typing import Sequence
 def check_decorator(src: bytes,missing_tag,filename: str = '<unknown>') -> int:
     file = src.readlines()
     missing_tag = missing_tag
-    lastline = ""
+    last_line = ""
     for line in file:
         if re.search("^class.*:$", line.decode("utf-8")):
             if (
-                lastline == ""
-                or ('"funid_test"' not in lastline and"'funid_test'" not in lastline)
+                last_line == ""
+                or ('"funid_test"' not in last_line and
+                    "'funid_test'" not in last_line)
             ):
                 index = file.index(line)
                 print(
@@ -24,7 +25,7 @@ def check_decorator(src: bytes,missing_tag,filename: str = '<unknown>') -> int:
                 )
                 missing_tag = True
 
-        lastline = line.decode("utf-8")
+        last_line = line.decode("utf-8")
     return missing_tag
 
 
@@ -35,9 +36,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     missing_tag = False
     for filename in args.filenames:
         dir = os.path.dirname(filename).split('/')
-        print(dir)
         if 'tests' in dir:
-            print("tests directory")
             base = os.path.basename(filename)
             if (
                     re.match("^test.*py$", base) or
@@ -47,4 +46,4 @@ def main(argv: Sequence[str] | None = None) -> int:
                     missing_tag = check_decorator(
                         f, missing_tag, filename=filename
                     )
-    return True
+    return missing_tag

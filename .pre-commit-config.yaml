@@ -1,5 +1,5 @@
 repos:
-- repo: https://github.com/odoosocius/pre-commit-test-hooks
-  rev: 4.2.6
+- repo: https://github.com/FernUni-UniDistance/pre-commit-hooks-funid
+  rev: 1.0.0
   hooks:
-    - id: check-decorator-value
+    - id: check-tests-decorator-tag
