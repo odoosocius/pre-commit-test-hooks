@@ -12,12 +12,9 @@ def check_decorator(src: bytes,missing_tag,filename: str = '<unknown>') -> int:
     lastline = ""
     for line in file:
         if re.search("^class.*:$", line.decode("utf-8")):
-            pattern1 = re.search("'funid_test'", lastline)
-            pattern2 = re.search('"funid_test"', lastline)
             if (
                 lastline == ""
                 or ('"funid_test"' not in lastline and"'funid_test'" not in lastline)
-                # or( not re.search("'funid_test'", txt) and not )
             ):
                 index = file.index(line)
                 print(
@@ -37,13 +34,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     missing_tag = False
     for filename in args.filenames:
+        dir=os.path.dirname(filename)
+        print(dir)
         base = os.path.basename(filename)
         if (
-                re.match("^test.*py$", base) and
-                base != '__init__.py'
+                re.match("^test.*py$", base) or
+                base == 'common.py'
         ):
             with open(filename, 'rb') as f:
                 missing_tag = check_decorator(
                     f, missing_tag, filename=filename
                 )
-    return missing_tag
+    return True
