@@ -12,10 +12,12 @@ def check_decorator(src: bytes,missing_tag,filename: str = '<unknown>') -> int:
     lastline = ""
     for line in file:
         if re.search("^class.*:$", line.decode("utf-8")):
+            pattern1 = re.search("'funid_test'", txt)
+            pattern2 = re.search('funid_test', txt)
             if (
                 lastline == ""
-                or ('"funid_test"' not in lastline)
-                or ("'funid_test'" not in lastline)
+                or ('"funid_test"' not in lastline and"'funid_test'" not in lastline)
+                # or( not re.search("'funid_test'", txt) and not )
             ):
                 index = file.index(line)
                 print(
