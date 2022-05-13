@@ -15,22 +15,22 @@ def searchDuplicates(po_file_path, duplicate,filename):
     """
     Log all those msgid duplicated inside the file
     """
-    with open(filename, 'rb') as file
-    files=file.readlines()
-    duplicate = duplicate
-    po_file = po_file_path
-    msg_ids = [entry.msgid for entry in po_file]
-    counter_dict = Counter(msg_ids)
-    if any(el for el in counter_dict.values() if el > 1):
-        print("========== Duplicates Terms are found! ==========")
-        print('========== Manual Intervention is needed """"""""')
-        duplicate = True
-    for key, value in counter_dict.items():
-        if value > 1:
-            print(key)
-            print(filename.index(key))
-            print(value)
-    return duplicate
+    with open(filename, 'rb') as file:
+        files=file.readlines()
+        duplicate = duplicate
+        po_file = po_file_path
+        msg_ids = [entry.msgid for entry in po_file]
+        counter_dict = Counter(msg_ids)
+        if any(el for el in counter_dict.values() if el > 1):
+            print("========== Duplicates Terms are found! ==========")
+            print('========== Manual Intervention is needed """"""""')
+            duplicate = True
+        for key, value in counter_dict.items():
+            if value > 1:
+                print(key)
+                print(filename.index(key))
+                print(value)
+        return duplicate
 
 
 def sort_entries(po_file_path, duplicate, save=False):
