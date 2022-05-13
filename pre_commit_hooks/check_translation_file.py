@@ -70,7 +70,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if (re.search(".po$", base)):
             
             print(filename)
-            duplicate = sortEntries(filename,duplicate,True)
+            duplicate = sort_entries(filename,duplicate,True)
             
     print(duplicate)
     return True
