@@ -68,7 +68,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(filename)
         if (re.match(".po$", base)):
              print(filename)
-            duplicate = sortEntries(filename,duplicate,True,)
+            duplicate = sortEntries(filename,duplicate,True)
             
     print(duplicate)
     return True
