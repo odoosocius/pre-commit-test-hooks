@@ -1,9 +1,11 @@
 
 import argparse
 import polib
+import os.path
 from __future__ import annotations
 from typing import Sequence
 from collections import Counter
+
 
 
 
@@ -62,8 +64,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     duplicate = False
     for filename in args.filenames:
-        duplicate = sort_entries(filename,duplicate,True,)
-
+        base = os.path.basename(filename)
+        if (re.match(".po$", base)):
+            duplicate = sortEntries(filename,duplicate,True,)
+            
     print(duplicate)
     return True
 
