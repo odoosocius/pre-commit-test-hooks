@@ -2,6 +2,7 @@ from __future__ import annotations
 import argparse
 import polib
 import os.path
+import re
 from typing import Sequence
 from collections import Counter
 
