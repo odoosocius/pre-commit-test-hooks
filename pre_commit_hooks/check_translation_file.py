@@ -1,8 +1,7 @@
-
+from __future__ import annotations
 import argparse
 import polib
 import os.path
-from __future__ import annotations
 from typing import Sequence
 from collections import Counter
 
