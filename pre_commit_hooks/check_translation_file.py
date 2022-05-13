@@ -11,7 +11,7 @@ from collections import Counter
 
 
 
-def searchDuplicates(po_file_path, duplicate):
+def searchDuplicates(po_file_path, duplicate,filename):
     """
     Log all those msgid duplicated inside the file
     """
@@ -23,10 +23,10 @@ def searchDuplicates(po_file_path, duplicate):
         print("========== Duplicates Terms are found! ==========")
         print('========== Manual Intervention is needed """"""""')
         duplicate = True
-
     for key, value in counter_dict.items():
         if value > 1:
             print(key)
+            print(filename.index(key))
             print(value)
     return duplicate
 
@@ -48,9 +48,9 @@ def sort_entries(po_file_path, duplicate, save=False):
         file_name = po_file_path
         print("File Sorted", file_name)
         po_sorted.save(file_name)
-        searchDuplicates(po_sorted,duplicate)
+        searchDuplicates(po_sorted,duplicate,filename)
         return True
-    return searchDuplicates(po_sorted,duplicate)
+    return searchDuplicates(po_sorted,duplicate,filename)
     
 
 
