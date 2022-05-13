@@ -48,9 +48,9 @@ def sort_entries(po_file_path, duplicate, save=False):
         file_name = po_file_path
         print("File Sorted", file_name)
         po_sorted.save(file_name)
-        searchDuplicates(po_sorted,duplicate,filename)
+        searchDuplicates(po_sorted,duplicate,po_file_path)
         return True
-    return searchDuplicates(po_sorted,duplicate,filename)
+    return searchDuplicates(po_sorted,duplicate,po_file_path)
     
 
 
