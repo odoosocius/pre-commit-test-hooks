@@ -28,7 +28,6 @@ def searchDuplicates(po_file_path, duplicate,filename):
         for key, value in counter_dict.items():
             if value > 1:
                 print(key)
-                print(files.index(key))
                 print(value)
         return duplicate
 
