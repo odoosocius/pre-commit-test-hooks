@@ -4,7 +4,6 @@
     entry: check-decorator-value
     language: python
     types: [python]
-
 -   id: check-po-translation
     name: check decorator funid test
     description: checks if test files have decorator "funid_test"
