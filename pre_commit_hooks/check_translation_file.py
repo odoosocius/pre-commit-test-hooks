@@ -65,7 +65,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     duplicate = False
     for filename in args.filenames:
         base = os.path.basename(filename)
+        print(filename)
         if (re.match(".po$", base)):
+             print(filename)
             duplicate = sortEntries(filename,duplicate,True,)
             
     print(duplicate)
