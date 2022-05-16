@@ -41,9 +41,6 @@ def sort_entries(po_file_path, duplicate, save=False):
     po_file = polib.pofile(po_file_path)
     for entry in sorted(po_file, key=lambda x: x.msgid):
         po_sorted.append(entry)
-    print(type(po_sorted))
-    print(type(po_file_path))
-    print(po_sorted == po_file) 
     if po_sorted != po_file and save:
         file_name = po_file_path
         print("File Sorted", file_name)
@@ -65,15 +62,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     duplicate = False
     for filename in args.filenames:
         base = os.path.basename(filename)
-        print(filename)
-        print(re.search(".po$", base))
         if (re.search(".po$", base)):
-            
-            print(filename)
             duplicate = sort_entries(filename,duplicate,True)
             
     print(duplicate)
-    return True
+    return duplicate
 
 
 
