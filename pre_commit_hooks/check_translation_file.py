@@ -29,7 +29,6 @@ def sort_entries(po_file_path, duplicate, save=False):
     Sort a po file
     :rtype: object
     """
-    print("entered")
     po_sorted = polib.POFile()
     po_file = polib.pofile(po_file_path)
     for entry in sorted(po_file, key=lambda x: x.msgid):
@@ -53,7 +52,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         if (re.search(".po$", base)):
             duplicate = sort_entries(filename,duplicate,True)
             
-    print(duplicate)
     return duplicate
 
 
