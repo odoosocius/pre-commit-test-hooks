@@ -7,6 +7,23 @@ from typing import Sequence
 from collections import Counter
 
 
+def emptypo(self):
+    po_obj = polib.POFile()
+    po_obj.metadata = {
+        "Project-Id-Version": "Odoo Server 13.0+e",
+        "Report-Msgid-Bugs-To": "",
+        "POT-Creation-Date": "2020-03-26 15:18+0000",
+        "PO-Revision-Date": "2020-03-26 15:18+0000",
+        "Last-Translator": "",
+        "Language-Team": "",
+        "MIME-Version": "1.0",
+        "Content-Type": "text/plain; charset=UTF-8",
+        "Content-Transfer-Encoding": "",
+        "Plural-Forms": "",
+    }
+    return po_obj
+
+
 def searchDuplicates(po_file_path, duplicate,filename):
     """
     Log all those msgid duplicated inside the file
@@ -31,15 +48,16 @@ def sort_entries(po_file_path, duplicate, save=False):
     """
     po_sorted = polib.POFile()
     po_file = polib.pofile(po_file_path)
+    po_out = self.emptyPo()
     for entry in sorted(po_file, key=lambda x: x.msgid):
-        po_sorted.append(entry)
+        po_out.append(entry)
     if po_sorted != po_file and save:
         file_name = po_file_path
         print("[FS8013] File Sorted", file_name)
         po_sorted.save(file_name)
-        searchDuplicates(po_sorted,duplicate,po_file_path)
+        searchDuplicates(po_out,duplicate,po_file_path)
         return True
-    return searchDuplicates(po_sorted,duplicate,po_file_path)
+    return searchDuplicates(po_out,duplicate,po_file_path)
     
 
 def main(argv: Sequence[str] | None = None) -> int:
