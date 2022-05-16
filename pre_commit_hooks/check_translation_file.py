@@ -49,15 +49,17 @@ def sort_entries(po_file_path, duplicate, save=False):
     po_sorted = polib.POFile()
     po_file = polib.pofile(po_file_path)
     po_out = emptypo()
+    po_sorted = polib.POFile()
     for entry in sorted(po_file, key=lambda x: x.msgid):
         po_out.append(entry)
+        po_sorted.append(entry)
     if po_out != po_file and save:
         file_name = po_file_path
         print("[FS8013] File Sorted", file_name)
         po_out.save(file_name)
-        searchDuplicates(po_out,duplicate,po_file_path)
+        searchDuplicates(po_sorted,duplicate,po_file_path)
         return True
-    return searchDuplicates(po_out,duplicate,po_file_path)
+    return searchDuplicates(po_sorted,duplicate,po_file_path)
     
 
 def main(argv: Sequence[str] | None = None) -> int:
