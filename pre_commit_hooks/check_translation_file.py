@@ -48,7 +48,7 @@ def sort_entries(po_file_path, duplicate, save=False):
     """
     po_sorted = polib.POFile()
     po_file = polib.pofile(po_file_path)
-    po_out = emptyPo()
+    po_out = emptypo()
     for entry in sorted(po_file, key=lambda x: x.msgid):
         po_out.append(entry)
     if po_sorted != po_file and save:
