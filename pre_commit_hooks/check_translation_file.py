@@ -22,7 +22,7 @@ def searchDuplicates(po_file_path, duplicate,filename):
     msg_ids = [entry.msgid for entry in po_file]
     counter_dict = Counter(msg_ids)
     if any(el for el in counter_dict.values() if el > 1):
-        print("Duplicates Terms are found!on file ",base)
+        print("Duplicates Terms are found!on file ",filename)
         print('========== Manual Intervention is needed """"""""')
         duplicate = True
     for key, value in counter_dict.items():
