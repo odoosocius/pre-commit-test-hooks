@@ -36,7 +36,7 @@ def sort_entries(po_file_path, duplicate, save=False):
         po_sorted.append(entry)
     if po_sorted != po_file and save:
         file_name = po_file_path
-        print("[FS 8013] File Sorted", file_name)
+        print("[FS8013] File Sorted", file_name)
         po_sorted.save(file_name)
         searchDuplicates(po_sorted,duplicate,po_file_path)
         return True
