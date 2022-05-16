@@ -51,10 +51,10 @@ def sort_entries(po_file_path, duplicate, save=False):
     po_out = emptypo()
     for entry in sorted(po_file, key=lambda x: x.msgid):
         po_out.append(entry)
-    if po_sorted != po_file and save:
+    if po_out != po_file and save:
         file_name = po_file_path
         print("[FS8013] File Sorted", file_name)
-        po_sorted.save(file_name)
+        po_out.save(file_name)
         searchDuplicates(po_out,duplicate,po_file_path)
         return True
     return searchDuplicates(po_out,duplicate,po_file_path)
