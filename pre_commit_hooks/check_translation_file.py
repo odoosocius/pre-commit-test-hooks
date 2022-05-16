@@ -7,10 +7,6 @@ from typing import Sequence
 from collections import Counter
 
 
-
-
-
-
 def searchDuplicates(po_file_path, duplicate,filename):
     """
     Log all those msgid duplicated inside the file
@@ -28,7 +24,7 @@ def searchDuplicates(po_file_path, duplicate,filename):
         for key, value in counter_dict.items():
             if value > 1:
                 print(key)
-                print(index = file.index(key))
+                print(index = file.search(key))
                 
         return duplicate
 
@@ -52,11 +48,6 @@ def sort_entries(po_file_path, duplicate, save=False):
     return searchDuplicates(po_sorted,duplicate,po_file_path)
     
 
-
-
-
-
-
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*')
@@ -69,9 +60,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             
     print(duplicate)
     return duplicate
-
-
-
 
 
 if __name__ == "__main__":
