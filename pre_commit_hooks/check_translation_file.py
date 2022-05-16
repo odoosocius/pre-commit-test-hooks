@@ -7,7 +7,7 @@ from typing import Sequence
 from collections import Counter
 
 
-def emptypo(self):
+def emptypo():
     po_obj = polib.POFile()
     po_obj.metadata = {
         "Project-Id-Version": "Odoo Server 13.0+e",
@@ -48,7 +48,7 @@ def sort_entries(po_file_path, duplicate, save=False):
     """
     po_sorted = polib.POFile()
     po_file = polib.pofile(po_file_path)
-    po_out = self.emptyPo()
+    po_out = emptyPo()
     for entry in sorted(po_file, key=lambda x: x.msgid):
         po_out.append(entry)
     if po_sorted != po_file and save:
