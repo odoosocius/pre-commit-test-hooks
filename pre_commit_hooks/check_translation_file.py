@@ -12,7 +12,7 @@ def searchDuplicates(po_file_path, duplicate,filename):
     Log all those msgid duplicated inside the file
     """
     with open(filename, 'rb') as f:
-        file = f.readlines()
+        file = f.read()
         duplicate = duplicate
         po_file = po_file_path
         msg_ids = [entry.msgid for entry in po_file]
