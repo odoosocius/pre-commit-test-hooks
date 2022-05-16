@@ -30,8 +30,9 @@ def searchDuplicates(po_file_path, duplicate,filename):
             if value > 1:
                 print(key)
                 print(type(key))
+                data = bytes(key, 'utf-8')
                 print(value)
-                print(files.index(key))
+                print(files.index(data))
         return duplicate
 
 
