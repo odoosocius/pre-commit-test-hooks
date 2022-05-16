@@ -16,7 +16,6 @@ def searchDuplicates(po_file_path, duplicate,filename):
     msg_ids = [entry.msgid for entry in po_file]
     counter_dict = Counter(msg_ids)
     if any(el for el in counter_dict.values() if el > 1):
-        print('========== Manual Intervention is needed """"""""')
         print("[DT8013] Follwing Duplicates Terms are found! on file ",filename)
         duplicate = True
     for key, value in counter_dict.items():
@@ -37,7 +36,7 @@ def sort_entries(po_file_path, duplicate, save=False):
         po_sorted.append(entry)
     if po_sorted != po_file and save:
         file_name = po_file_path
-        print("File Sorted", file_name)
+        print("[FS 8013] File Sorted", file_name)
         po_sorted.save(file_name)
         searchDuplicates(po_sorted,duplicate,po_file_path)
         return True
