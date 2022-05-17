@@ -29,7 +29,7 @@ def search_duplicate_menu(filename):
         file = f.readlines()
         for line in file:
             if re.search("^#: model:ir.ui.menu", line.decode("utf-8")):
-                print(found)
+                print("found")
                 index = file.index(line)
                 print(index)
                
