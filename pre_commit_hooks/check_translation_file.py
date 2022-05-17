@@ -31,6 +31,8 @@ def searchDuplicates(po_file_path, duplicate,filename):
     duplicate = duplicate
     po_file = po_file_path
     msg_ids = [entry.msgid for entry in po_file]
+    test = [ entry.model for entry in po_file ]
+    print(test)
     counter_dict = Counter(msg_ids)
     if any(el for el in counter_dict.values() if el > 1):
         print("[DT8013] Follwing Duplicates Terms are found! on file ",filename)
@@ -72,7 +74,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if (re.search(".po$", base)):
             duplicate = sort_entries(filename,duplicate,True)
             
-    return duplicate
+    return true
 
 
 if __name__ == "__main__":
