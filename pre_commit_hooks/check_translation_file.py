@@ -38,6 +38,16 @@ def search_duplicate_menu(filename,duplicate):
                         f'(on lines {indices}).',
                     )
                     duplicate = True
+            if re.search("^#: model:ir.actions.act_window", line.decode("utf-8")):
+                indices  = [index+1 for (index, item) in enumerate(file) if item == line]
+                if len(indices) >1:
+                    print(
+                        f'[DWA8103].'
+                        f'Duplicate window actions on {filename}'
+                        f'(on lines {indices}).',
+                    )
+                    duplicate = True
+                
                
     return duplicate
                 
