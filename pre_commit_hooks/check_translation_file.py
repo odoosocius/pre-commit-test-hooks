@@ -26,13 +26,11 @@ def emptypo():
 def search_duplicate_menu(filename):
     print("duplicate menu")
     with open(filename, 'r') as f:
-        print("duplicate menu1")
         whole_file = f.read()
         file = f.readlines()
-        print("duplicate menu2")
         for line in file:
             print("duplicate menu3")
-            if re.search("^# :model:ir.ui.menu.", line):
+            if re.search("^#: model:ir.ui.menu.", line):
                print("found")
                if re.findall(line,whole_file):
                     print(re.findall(line,whole_file))
