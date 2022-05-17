@@ -23,16 +23,26 @@ def emptypo():
     }
     return po_obj
 
+def search_duplicate_menu(filename):
+    with open(filename, 'r') as f:     
+        whole_file = f.read
+        file = f.readlines()
+        for line in file:
+            if re.search("^# :model:ir.ui.menu.", line):
+               print("found")
+               if re.findall(line,whole_file):
+                    print(re.findall(line,whole_file))
+    return
+                
 
 def searchDuplicates(po_file_path, duplicate,filename):
     """
     Log all those msgid duplicated inside the file
     """
     duplicate = duplicate
+    menu = search_duplicate_menu(filename)
     po_file = po_file_path
     msg_ids = [entry.msgid for entry in po_file]
-    test = [ entry for entry in po_file ]
-    print(test)
     counter_dict = Counter(msg_ids)
     if any(el for el in counter_dict.values() if el > 1):
         print("[DT8013] Follwing Duplicates Terms are found! on file ",filename)
@@ -74,7 +84,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if (re.search(".po$", base)):
             duplicate = sort_entries(filename,duplicate,True)
             
-    return true
+    return True
 
 
 if __name__ == "__main__":
