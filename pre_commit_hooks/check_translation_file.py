@@ -27,11 +27,11 @@ def search_duplicate_menu(filename):
     print("duplicate menu")
     with open(filename, 'rb') as f:
         file = f.readlines()
-        print(file)
         for line in file:
-            print("duplicate menu3")
             if re.search("^#: model:ir.ui.menu", line.decode("utf-8")):
-               print("found")
+                print(found)
+                index = file.index(line)
+                print(index)
                
     return
                 
