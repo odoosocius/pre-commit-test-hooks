@@ -27,7 +27,8 @@ def search_duplicate_menu(filename,duplicate):
     with open(filename, 'rb') as f:
         duplicate = duplicate
         file = f.readlines()
-        for line in file:
+        set_file = set(file)
+        for line in set_file:
             if re.search("^#: model:ir.ui.menu", line.decode("utf-8")):
                 indices  = [index+1 for (index, item) in enumerate(file) if item == line]
                 if len(indices) >1:
