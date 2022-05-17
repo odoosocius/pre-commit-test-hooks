@@ -24,6 +24,7 @@ def emptypo():
     return po_obj
 
 def search_duplicate_menu(filename):
+    print("duplicate menu")
     with open(filename, 'r') as f:     
         whole_file = f.read
         file = f.readlines()
