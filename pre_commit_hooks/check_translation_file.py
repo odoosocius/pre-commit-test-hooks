@@ -23,18 +23,22 @@ def emptypo():
     }
     return po_obj
 
-def search_duplicate_menu(filename):
-    print("duplicate menu")
+def search_duplicate_menu(filename,duplicate):
     with open(filename, 'rb') as f:
+        duplicate = duplicate
         file = f.readlines()
         for line in file:
             if re.search("^#: model:ir.ui.menu", line.decode("utf-8")):
-                print("found")
-                print("in")
-                indices  = [index for (index, item) in enumerate(file) if item == line]
-                print(indices)
+                indices  = [index+1 for (index, item) in enumerate(file) if item == line]
+                if len(indices) >1:
+                    print(
+                        f'[DM8103].'
+                        f'Duplicate Menu on {filename}'
+                        f'(on lines {indices}).',
+                    )
+                    duplicate = True
                
-    return
+    return duplicate
                 
 
 def searchDuplicates(po_file_path, duplicate,filename):
@@ -42,7 +46,7 @@ def searchDuplicates(po_file_path, duplicate,filename):
     Log all those msgid duplicated inside the file
     """
     duplicate = duplicate
-    menu = search_duplicate_menu(filename)
+    duplicate = search_duplicate_menu(filename,duplicate)
     po_file = po_file_path
     msg_ids = [entry.msgid for entry in po_file]
     counter_dict = Counter(msg_ids)
