@@ -101,7 +101,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if (re.search(".po$", base)):
             duplicate = sort_entries(filename,duplicate,True)
             
-    return True
+    return duplicate
 
 
 if __name__ == "__main__":
