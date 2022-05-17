@@ -31,7 +31,7 @@ def searchDuplicates(po_file_path, duplicate,filename):
     duplicate = duplicate
     po_file = po_file_path
     msg_ids = [entry.msgid for entry in po_file]
-    test = [ entry.model for entry in po_file ]
+    test = [ entry for entry in po_file ]
     print(test)
     counter_dict = Counter(msg_ids)
     if any(el for el in counter_dict.values() if el > 1):
