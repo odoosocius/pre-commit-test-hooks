@@ -28,9 +28,10 @@ def search_duplicate_menu(filename):
     with open(filename, 'r') as f:
         whole_file = f.read()
         file = f.readlines()
+        print(file)
         for line in file:
             print("duplicate menu3")
-            if re.search("^#: model:ir.ui.menu.", line):
+            if re.search("^#: model:ir.ui.menu", line):
                print("found")
                if re.findall(line,whole_file):
                     print(re.findall(line,whole_file))
