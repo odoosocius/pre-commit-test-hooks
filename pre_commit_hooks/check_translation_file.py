@@ -61,7 +61,7 @@ def sort_entries(po_file_path, duplicate, save=False):
         print("[FS8013] File Sorted", file_name)
         po_out.save(file_name)
         return True
-    return search_duplicate_menu(po_file_path, duplicate)
+    return search_duplicate_menu(po_out, duplicate)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
