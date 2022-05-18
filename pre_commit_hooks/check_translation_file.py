@@ -39,13 +39,17 @@ def search_duplicate_menu(filename, duplicate):
                     indices = [index + 1 for (index, item) in enumerate(file)
                                if item == line]
                     if len(indices) > 1:
-                        selection ="Menu" if exp == "^#: model:ir.ui.menu" else "Window Action"
+                        if exp == "^#: model:ir.ui.menu":
+                            selection = "Menu"
+                            code = "DM8103"
+                        else:
+                            selection = "Window Action"
+                            code = "DWA8103 "
                         print(
-                            f'[DM8103].'
+                            f'[{code}].'
                             f'Duplicate {selection} on {filename}'
                             f'(on lines {indices}).',
                         )
-                        duplicate = True
     return duplicate
 
 
