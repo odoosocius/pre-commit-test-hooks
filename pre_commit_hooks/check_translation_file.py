@@ -25,21 +25,24 @@ def emptypo():
 
 
 def search_duplicate_menu(filename, duplicate):
+    """ search for duplicate menu and window action"""
     with open(filename, 'rb') as f:
         duplicate = duplicate
         file = f.readlines()
         set_file = set(file)
         expressions = ("^#: model:ir.ui.menu",
                        "^#: model:ir.actions.act_window")
+        
         for line in set_file:
             for exp in expressions:
                 if re.search(exp, line.decode("utf-8")):
                     indices = [index + 1 for (index, item) in enumerate(file)
                                if item == line]
                     if len(indices) > 1:
+                        selection ="Menu" if exp == "^#: model:ir.ui.menu" else "Window Action"
                         print(
                             f'[DM8103].'
-                            f'Duplicate {exp} on {filename}'
+                            f'Duplicate {selection} on {filename}'
                             f'(on lines {indices}).',
                         )
                         duplicate = True
@@ -61,7 +64,7 @@ def sort_entries(po_file_path, duplicate, save=False):
         print("[FS8013] File Sorted", file_name)
         po_out.save(file_name)
         return True
-    return search_duplicate_menu(po_out, duplicate)
+    return search_duplicate_menu(po_file_path, duplicate)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
