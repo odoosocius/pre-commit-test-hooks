@@ -50,6 +50,7 @@ def search_duplicate_menu(filename, duplicate):
                             f'Duplicate {selection} on {filename}'
                             f'(on lines {indices}).',
                         )
+                        duplicate = True
     return duplicate
 
 
