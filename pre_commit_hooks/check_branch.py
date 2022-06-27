@@ -8,7 +8,7 @@ import git
 from git import Repo
 
 
-def check_up_to_date(self):
+def check_up_to_date():
     
     directory = os.getcwd()
     print(directory)
@@ -19,7 +19,7 @@ def check_up_to_date(self):
     return True
 
 
-def main(self):
+def main():
     mis_match = True
     mis_match = check_up_to_date()
 
