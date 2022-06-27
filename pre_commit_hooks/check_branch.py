@@ -16,7 +16,7 @@ def check_up_to_date():
     g = git.cmd.Git(directory)
     print("this is one option ", g.fetch())
     print(repo)
-    print("this is  option two" ,g.fetch('orgin', '--dry-run'))
+    print("this is  option two" ,g.fetch('origin', '--dry-run'))
     result = repo.remote().fetch()
     print(result)
     return True
