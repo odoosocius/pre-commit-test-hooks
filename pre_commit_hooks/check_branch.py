@@ -9,9 +9,10 @@ from git import Repo
 
 
 def check_up_to_date(self):
-    repo = git.Repo('name_of_repo')
     
-    repo = Repo(self.rorepo.working_tree_dir)
+    directory = os.getcwd()
+    print(directory)
+    repo = Repo(directory)
     print(repo)
     result = repo.remote().fetch()
     print(result)
