@@ -14,7 +14,8 @@ def check_up_to_date(mis_match):
     print(directory)
     g = git.cmd.Git(directory)
     result = g.fetch('origin', '--dry-run')
-    print(result)
+    print(g.pul(),"pull request")
+    print(result,"this is the result")
     if result:
         mis_match = True
     return mis_match
