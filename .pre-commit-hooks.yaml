@@ -9,3 +9,8 @@
     description: check translation duplicate test
     entry: check-po-translation
     language: python
+-   id: check-up-to-date
+    name: check branch is up to date
+    description: check branch is up to date
+    entry: check-up-to-date
+    language: python
