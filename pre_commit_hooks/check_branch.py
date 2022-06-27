@@ -8,7 +8,9 @@ import git
 from git import Repo
 
 
-def check_up_to_date():
+def check_up_to_date(self):
+    repo = git.Repo('name_of_repo')
+    
     repo = Repo(self.rorepo.working_tree_dir)
     print(repo)
     result = repo.remote().fetch()
@@ -16,7 +18,7 @@ def check_up_to_date():
     return True
 
 
-def main():
+def main(self):
     mis_match = True
     mis_match = check_up_to_date()
 
