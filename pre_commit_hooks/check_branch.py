@@ -8,22 +8,20 @@ import git
 from git import Repo
 
 
-def check_up_to_date():
+def check_up_to_date(mis_match):
     
     directory = os.getcwd()
     print(directory)
-    repo = Repo(directory)
     g = git.cmd.Git(directory)
-    print("this is one option ", g.fetch())
-    print(repo)
-    print("this is  option two" ,g.fetch('origin', '--dry-run'))
-    result = repo.remote().fetch()
+    result = g.fetch('origin', '--dry-run')
     print(result)
-    return True
+    if result:
+        mis_match = True
+    return mis_match
 
 
 def main():
     mis_match = True
-    mis_match = check_up_to_date()
+    mis_match = check_up_to_date(mis_match)
 
     return mis_match
