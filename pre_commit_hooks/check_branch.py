@@ -12,25 +12,15 @@ def check_up_to_date_with_cloud(mis_match):
     
     directory = os.getcwd()
     print(directory)
-    repo = Repo(directory)
-    print(repo.remote().fetch('origin', '--dry-run'))
     g = git.cmd.Git(directory)
     print(g.fetch('origin', '--dry-run'),"this is results")
+    result = g.fetch('origin', '--dry-run')
     print("is not uptodate with cloned repo ")
     if result:
         mis_match = True
     return mis_match
 
-def check_up_to_date_with_local_repo(mis_match):
-    
-    directory = os.getcwd()
-    print(directory)
-    repo = Repo(directory)
-    print(repo.remote().git.rev_list('..origin'))
-    print("is not uptodate with cloned repo ")
-    if result:
-        mis_match = True
-    return mis_match
+
 
 def main():
     mis_match = True
