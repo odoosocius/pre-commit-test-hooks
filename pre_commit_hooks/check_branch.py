@@ -20,7 +20,7 @@ def check_up_to_date(mis_match):
     print(repo.git.diff(repo.head.commit.tree))
     for remote in repo.remotes:
         print(f'- {remote.name} {remote.url}')
-        print(remote.fetch('origin', '--dry-run'),"in loop")
+        print(remote.fetch('--dry-run'),"in loop")
     gg=Git()
     print(gg.fetch('origin', '--dry-run'),"is empty")
     result=repo.git.fetch('origin', '--dry-run')
