@@ -25,10 +25,9 @@ def check_up_to_date_with_local_repo(mis_match):
     
     directory = os.getcwd()
     print(directory)
-    g = git.cmd.Git(directory)
-    result = g.rev-list ..main
-    print(result,"this is the result")
-    print("branch not uptodate with local repo ")
+    repo = Repo(directory)
+    print(repo.remote().git.rev_list('..origin'))
+    print("is not uptodate with cloned repo ")
     if result:
         mis_match = True
     return mis_match
