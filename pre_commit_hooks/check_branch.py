@@ -15,14 +15,14 @@ def check_up_to_date(mis_match):
     print(directory)
     repo = Repo(directory)
     print(repo)
-    print(repo.git.fetch('origin', '--dry-run'))
-    print(repo.is_dirty(untracked_files=True))
-    print(repo.git.diff(repo.head.commit.tree))
+    #print(repo.git.fetch('origin', '--dry-run'))
+    #print(repo.is_dirty(untracked_files=True))
     for remote in repo.remotes:
         print(f'- {remote.name} {remote.url}')
         print(remote.fetch('--dry-run'),"in loop")
     gg=Git()
     print(gg.fetch('origin', '--dry-run'),"is empty")
+    print(gg.branch(),"is empty")
     result=repo.git.fetch('origin', '--dry-run')
     if result:
         mis_match = True
