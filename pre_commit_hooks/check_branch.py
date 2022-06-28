@@ -8,22 +8,22 @@ import git
 from git import Repo
 
 
-def check_up_to_date_with_cloud(mis_match):
+def check_up_to_date(mis_match):
     
-    repo = git.Repo()
-    print(repo)
-    print("will this work",repo.fetch('origin', '--dry-run'))
-    result = repo.fetch('origin', '--dry-run')
-    
+    directory = os.getcwd()
+    print(directory)
+    g = git.cmd.Git(directory)
+    dd = Repo(directory)
+    print(Repo(self.rorepo.working_tree_dir))
+    result = g.fetch('origin', '--dry-run')
+    print(result,"this is the result")
     if result:
-        print("is not uptodate with cloned repo ")
         mis_match = True
     return mis_match
 
 
-
 def main():
     mis_match = True
-    mis_match = check_up_to_date_with_cloud(mis_match)
+    mis_match = check_up_to_date(mis_match)
 
     return mis_match
