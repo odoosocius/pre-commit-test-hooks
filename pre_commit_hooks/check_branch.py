@@ -15,6 +15,7 @@ def check_up_to_date_with_cloud(mis_match):
     g = git.cmd.Git(directory)
     result = g.fetch('origin', '--dry-run')
     print(result,"this is the result")
+    print("is not uptodate with cloned repo ")
     if result:
         mis_match = True
     return mis_match
@@ -26,6 +27,7 @@ def check_up_to_date_with_local_repo(mis_match):
     g = git.cmd.Git(directory)
     result = g.fetch('origin', '--dry-run')
     print(result,"this is the result")
+    print("branch not uptodate with local repo ")
     if result:
         mis_match = True
     return mis_match
