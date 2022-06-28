@@ -25,7 +25,7 @@ def check_up_to_date_with_local_repo(mis_match):
     directory = os.getcwd()
     print(directory)
     g = git.cmd.Git(directory)
-    result = g.fetch('origin', '--dry-run')
+    result = g.rev-list('..main')
     print(result,"this is the result")
     print("branch not uptodate with local repo ")
     if result:
