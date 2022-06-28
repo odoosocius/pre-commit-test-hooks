@@ -28,6 +28,5 @@ def check_up_to_date_with_cloud(mis_match):
 def main():
     mis_match = True
     mis_match = check_up_to_date_with_cloud(mis_match)
-    mis_match = check_up_to_date_with_local_repo(mis_match)
 
     return mis_match
