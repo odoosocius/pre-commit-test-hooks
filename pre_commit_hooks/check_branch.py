@@ -14,9 +14,8 @@ def check_up_to_date(mis_match):
     print(directory)
     repo = Repo(directory)
     print(repo)
-    o = repo.remotes.origin
-    print(o.fetch('origin', '--dry-run'))
-    result=o.fetch('origin', '--dry-run')
+    print(repo.git.fetch('origin', '--dry-run'))
+    result=repo.git.fetch('origin', '--dry-run')
     if result:
         mis_match = True
     return mis_match
