@@ -14,9 +14,10 @@ def check_up_to_date(mis_match):
     print(directory)
     g = git.cmd.Git(directory)
     dd = Repo(directory)
-    print(Repo(self.rorepo.working_tree_dir))
+    print(dd)
     result = g.fetch('origin', '--dry-run')
     print(result,"this is the result")
+    print(dd.fetch('origin', '--dry-run'))
     if result:
         mis_match = True
     return mis_match
