@@ -15,6 +15,8 @@ def check_up_to_date(mis_match):
     repo = Repo(directory)
     print(repo)
     print(repo.git.fetch('origin', '--dry-run'))
+    print(repo.is_dirty(untracked_files=True))
+    print(repo.git.diff(repo.head.commit.tree))
     result=repo.git.fetch('origin', '--dry-run')
     if result:
         mis_match = True
