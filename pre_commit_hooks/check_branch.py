@@ -10,7 +10,7 @@ from git import Repo
 
 def check_up_to_date_with_cloud(mis_match):
     
-    git = repo.git
+    git = git.Repo()
     print(git)
     print("will this work",git.fetch('origin', '--dry-run'))
     result = git.fetch('origin', '--dry-run')
