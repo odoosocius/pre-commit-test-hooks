@@ -21,7 +21,8 @@ def check_up_to_date(mis_match):
     for remote in repo.remotes:
         print(f'- {remote.name} {remote.url}')
     print(repo.remotes.origin.fetch('--dry-run'))
-    print(Git.fetch('origin', '--dry-run'))
+    gg=Git()
+    print(gg.fetch('origin', '--dry-run'))
     result=repo.git.fetch('origin', '--dry-run')
     if result:
         mis_match = True
