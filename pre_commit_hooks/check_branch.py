@@ -14,7 +14,7 @@ def check_up_to_date_with_cloud(mis_match):
     print(directory)
     repo = Repo(directory)
     print(repo)
-    print("will this work",git.fetch('origin', '--dry-run'))
+    print("will this work",repo.git.fetch('origin', '--dry-run'))
     g = git.cmd.Git(directory)
     print(g.fetch('origin', '--dry-run'),"this is results")
     result = g.fetch('origin', '--dry-run')
