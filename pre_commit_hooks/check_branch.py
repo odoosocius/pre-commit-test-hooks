@@ -12,6 +12,9 @@ def check_up_to_date_with_cloud(mis_match):
     
     directory = os.getcwd()
     print(directory)
+    repo = Repo(directory)
+    print(repo)
+    print("will this work",git.fetch('origin', '--dry-run'))
     g = git.cmd.Git(directory)
     print(g.fetch('origin', '--dry-run'),"this is results")
     result = g.fetch('origin', '--dry-run')
