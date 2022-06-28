@@ -10,16 +10,13 @@ from git import Repo
 
 def check_up_to_date_with_cloud(mis_match):
     
-    directory = os.getcwd()
-    print(directory)
-    repo = Repo(directory)
-    print(repo)
-    print("will this work",repo.git.fetch('origin', '--dry-run'))
-    g = git.cmd.Git(directory)
-    print(g.fetch('origin', '--dry-run'),"this is results")
-    result = g.fetch('origin', '--dry-run')
-    print("is not uptodate with cloned repo ")
+    git = repo.git
+    print(git)
+    print("will this work",git.fetch('origin', '--dry-run'))
+    result = git.fetch('origin', '--dry-run')
+    
     if result:
+        print("is not uptodate with cloned repo ")
         mis_match = True
     return mis_match
 
