@@ -12,12 +12,11 @@ def check_up_to_date(mis_match):
     
     directory = os.getcwd()
     print(directory)
-    g = git.cmd.Git(directory)
-    dd = Repo(directory)
-    print(dd)
-    result = g.fetch('origin', '--dry-run')
-    print(result,"this is the result")
-    print(dd.fetch('origin', '--dry-run'))
+    repo = Repo(directory)
+    print(repo)
+    o = repo.remotes.origin
+    print(o.fetch('origin', '--dry-run'))
+    result=o.fetch('origin', '--dry-run')
     if result:
         mis_match = True
     return mis_match
