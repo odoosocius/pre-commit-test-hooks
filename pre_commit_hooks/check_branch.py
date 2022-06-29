@@ -19,7 +19,7 @@ def check_up_to_date(mis_match):
         print(data.remote_ref_path)
         if data.flag!=4 and data.remote_ref_path =="main":
             mis_match = True
-    if repo.git.rev_list("..main"),"revlist"):
+    if repo.git.rev_list("..main"):
         mis_match = True
     return mis_match
 
