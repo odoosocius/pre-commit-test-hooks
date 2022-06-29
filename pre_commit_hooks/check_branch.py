@@ -16,7 +16,7 @@ def check_up_to_date(mis_match):
     for data in repo.remote().fetch("--dry-run"):
         if data.flags!=4 and data.remote_ref_path =="main":
             mis_match = True
-             print(
+            print(
                     f'[FD813].'
                     f'branch  is not up to date .'  
                 )
