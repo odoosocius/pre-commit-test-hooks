@@ -26,6 +26,7 @@ def check_up_to_date(mis_match):
         print(remote.fetch('--dry-run'),"in loop")
     gg=Git()
     print(gg.fetch('--dry-run'),"is empty")
+    print(gg.fetch("orgin",dry_run=True),"is empty")
     print(gg.branch(),"is empty")
     result=repo.git.fetch('origin', '--dry-run')
     if result:
