@@ -18,6 +18,7 @@ def check_up_to_date(mis_match):
     print(repo.remote().fetch(),"is empty")
     for data in repo.remote().fetch():
         print(data.flags)
+        print(data.summary)
     print(repo.remotes.origin.fetch("--dry-run"))
     print(repo.git.rev_list("..main"),"revlist")
     #print(repo.git.fetch('origin', '--dry-run'))
