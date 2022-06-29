@@ -15,7 +15,7 @@ def check_up_to_date(mis_match):
     print(directory)
     repo = Repo(directory)
     
-    print(repo.remote().fetch(),"is empty")
+    #print(repo.remote().fetch(),"is empty")
     for data in repo.remote().fetch():
         print(data.flags)
         print(data.note)
