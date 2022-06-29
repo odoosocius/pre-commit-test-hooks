@@ -14,13 +14,18 @@ def check_up_to_date(mis_match):
     directory = os.getcwd()
     repo = Repo(directory)
     for data in repo.remote().fetch("--dry-run"):
-        print(data.flags)
-        print(data.ref)
-        print(data.remote_ref_path)
         if data.flags!=4 and data.remote_ref_path =="main":
             mis_match = True
+             print(
+                    f'[FD813].'
+                    f'branch  is not up to date .'  
+                )
     if repo.git.rev_list("..main"):
-        mis_match = False
+        mis_match = True
+        print(
+                    f'[FD813].'
+                    f'branch is not up to date .'  
+                )
     return mis_match
 
 
