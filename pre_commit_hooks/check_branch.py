@@ -14,6 +14,7 @@ def check_up_to_date(mis_match):
         print(data.remote_ref_path)
         print(data.flags)
         if data.flags != 4 and data.remote_ref_path == "13.0":
+            print("inside here")
             mis_match = True
             print(
                     f'[FD813].'
