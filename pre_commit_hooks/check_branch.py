@@ -15,11 +15,7 @@ def check_up_to_date(mis_match):
         print(data.flags)
         if data.flags != 4:
             print("not == 4")
-        if data.remote_ref_path == 13.0:
-            print(13.0)
-        if data.remote_ref_path == "13.0":
-            print(13.0)
-        if data.flags != 4 and data.remote_ref_path == 13.0:
+        if data.flags != 4:
             print("inside here")
             mis_match = True
             print(
