@@ -11,7 +11,7 @@ def check_up_to_date(mis_match):
     directory = os.getcwd()
     repo = Repo(directory)
     for data in repo.remote().fetch("--dry-run"):
-        print(str(data.remote_ref_path))
+        print(str(data.remote_ref_path),"thendi")
         print(type(data.remote_ref_path))
         print(str(data.remote_ref_path)=='13.0')
         if data.flags != 4 and str(data.remote_ref_path) == "13.0":
