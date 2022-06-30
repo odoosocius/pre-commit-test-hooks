@@ -11,6 +11,8 @@ def check_up_to_date(mis_match):
     directory = os.getcwd()
     repo = Repo(directory)
     for data in repo.remote().fetch("--dry-run"):
+        print(data.data.remote_ref_path)
+        print(data.data.flags)
         if data.flags != 4 and data.remote_ref_path == "13.0":
             mis_match = True
             print(
@@ -28,6 +30,6 @@ def check_up_to_date(mis_match):
 
 
 def main():
-    mis_match = False
+    mis_match = True
     mis_match = check_up_to_date(mis_match)
     return 
