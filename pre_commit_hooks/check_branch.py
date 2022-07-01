@@ -18,15 +18,7 @@ def check_up_to_date(mis_match):
                     f'Your local repository is not up'
                     f'to date with production repository'
                 )
-    g = git.cmd.Git(directory)
-    if g.pull("--dry_run"):
-        print(
-                f'[FD813].'
-                f'Your local repository is not up'
-                f'to date with production repository'
-                f'please pull the latest changes'
-            )
-    if repo.git.rev_list("..main"):
+    if repo.git.rev_list("..origin/main"):
         mis_match = True
         print(
                     f'[FD813].'
