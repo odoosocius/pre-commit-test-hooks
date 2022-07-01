@@ -18,7 +18,8 @@ def check_up_to_date(mis_match):
                     f'Your local repository is not up'
                     f'to date with production repository'
                 )
-        
+    for data in repo.remote().pull("--dry-run"):
+        print(data)
     if repo.git.rev_list("..13.0"):
         mis_match = True
         print(
@@ -31,4 +32,4 @@ def check_up_to_date(mis_match):
 def main():
     mis_match = False
     mis_match = check_up_to_date(mis_match)
-    return mis_match
+    return True
