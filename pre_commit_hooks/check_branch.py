@@ -20,6 +20,7 @@ def check_up_to_date(mis_match):
                 )
     for data in repo.remote().pull("--dry_run"):
         print(data)
+        print(data.flags)
     if repo.git.rev_list("..13.0"):
         mis_match = True
         print(
