@@ -18,7 +18,7 @@ def check_up_to_date(mis_match):
                     f'Your local repository is not up'
                     f'to date with production repository'
                 )
-    for data in repo.remote().pull("--dry-run"):
+    for data in repo.pull("--dry_run"):
        if data.flags != 4 and (data.remote_ref_path).strip() == "main":
             mis_match = True
             print(
