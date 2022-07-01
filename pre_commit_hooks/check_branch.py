@@ -18,7 +18,7 @@ def check_up_to_date(mis_match):
                     f'Your local repository is not up'
                     f'to date with production repository'
                 )
-    if repo.git.rev_list("..origin/main"):
+    if repo.git.rev_list("..remotes/origin/main"):
         mis_match = True
         print(
                     f'[FD813].'
