@@ -11,7 +11,7 @@ def check_up_to_date(mis_match):
     directory = os.getcwd()
     repo = Repo(directory)
     for data in repo.remote().fetch("--dry-run"):
-        if data.flags != 4 and (data.remote_ref_path).strip() == "13.0":
+        if data.flags != 4 and (data.remote_ref_path).strip() == "main":
             mis_match = True
             print(
                     f'[FD813].'
@@ -19,7 +19,7 @@ def check_up_to_date(mis_match):
                     f'to date with production repository'
                 )
     for data in repo.remote().pull("--dry-run"):
-       if data.flags != 4 and (data.remote_ref_path).strip() == "13.0":
+       if data.flags != 4 and (data.remote_ref_path).strip() == "main":
             mis_match = True
             print(
                     f'[FD813].'
@@ -27,7 +27,7 @@ def check_up_to_date(mis_match):
                     f'to date with production repository'
                     f'please pull the latest changes'
                 )
-    if repo.git.rev_list("..13.0"):
+    if repo.git.rev_list("..main"):
         mis_match = True
         print(
                     f'[FD813].'
