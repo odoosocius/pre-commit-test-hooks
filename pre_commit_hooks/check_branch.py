@@ -30,4 +30,4 @@ def check_up_to_date(mis_match):
 def main():
     mis_match = False
     mis_match = check_up_to_date(mis_match)
-    return True
+    return mis_match
