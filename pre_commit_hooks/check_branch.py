@@ -5,7 +5,14 @@ import git
 from git import Repo
 from git import Git
 
-
+def check_remote(mis_match):
+    directory = os.getcwd()
+    repo = Repo(directory)
+    g = git.cmd.Git()
+    print(g.ls_remote('origin').split('\n'))
+    print(g.ls_remote('upstream').split('\n'))
+    return mis_match   
+    
 def check_up_to_date(mis_match):
     
     directory = os.getcwd()
@@ -29,5 +36,6 @@ def check_up_to_date(mis_match):
 
 def main():
     mis_match = False
+    mis_match = check_remote(mis_match)
     mis_match = check_up_to_date(mis_match)
-    return mis_match
+    return True
