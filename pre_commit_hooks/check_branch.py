@@ -9,6 +9,11 @@ def check_remote(mis_match):
     directory = os.getcwd()
     repo = Repo(directory)
     g = git.cmd.Git()
+    try:
+        print(g.ls_remote('origin').split('\n'))
+        print(g.ls_remote('upstream').split('\n'))
+    except Exception:
+        print("dark happened")
     print(g.ls_remote('origin').split('\n'))
     print(g.ls_remote('upstream').split('\n'))
     return mis_match   
