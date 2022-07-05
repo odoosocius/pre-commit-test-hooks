@@ -9,13 +9,13 @@ def check_remote(mis_match):
     directory = os.getcwd()
     repo = Repo(directory)
     g = git.cmd.Git()
-    try:
-        print(g.ls_remote('origin').split('\n'))
-        print(g.ls_remote('upstream').split('\n'))
-    except Exception:
-        print("You seem not to have an upstream remote")
-        mis_match = True
-        return mis_match  
+#     try:
+#         print(g.ls_remote('origin').split('\n'))
+#         print(g.ls_remote('upstream').split('\n'))
+#     except Exception:
+#         print("You seem not to have an upstream remote")
+#         mis_match = True
+#         return mis_match  
     print(g.ls_remote('origin').split('\n'))
     my_repo = git.Repo('origin')
     print(my_repo)
