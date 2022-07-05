@@ -60,6 +60,8 @@ def check_up_to_date(mis_match):
             f'Error'
             f'You seem not to have an upstream remote'
         )
+        mis_match = True
+        return mis_match
 
 def main():
     mis_match = False
