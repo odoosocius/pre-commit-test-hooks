@@ -19,7 +19,6 @@ def check_remote(mis_match):
         )
         mis_match = True
         return mis_match
-    print(g.remote('get-url', 'origin'))
     if (g.remote('get-url', 'origin') ==
             'https://github.com/odoosocius/TestCodeRepo.git'):
         print(
@@ -32,7 +31,7 @@ def check_remote(mis_match):
             'https://github.com/odoosocius/TestCodeRepo.git'):
         print(
             f'[FUS813].'
-            f'Your upstream remote is'
+            f'Your upstream remote is '
             f'not the FernUni repository'
         )
         mis_match = True
