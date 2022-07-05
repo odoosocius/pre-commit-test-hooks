@@ -7,8 +7,6 @@ from git import Git
 
 
 def check_remote(mis_match):
-    directory = os.getcwd()
-    repo = Repo(directory)
     g = git.cmd.Git()
     try:
         g.ls_remote('upstream').split('\n')
@@ -41,22 +39,27 @@ def check_remote(mis_match):
 def check_up_to_date(mis_match):
     directory = os.getcwd()
     repo = Repo(directory)
-    for data in repo.remote('upstream').fetch("--dry-run"):
-        if data.flags != 4 and (data.remote_ref_path).strip() == "main":
+    try:
+        for data in repo.remote('upstream').fetch("--dry-run"):
+            if data.flags != 4 and (data.remote_ref_path).strip() == "main":
+                mis_match = True
+                print(
+                    f'[FD813].'
+                    f'Your local repository is not up'
+                    f'to date with production repository'
+                )
+        if repo.git.rev_list("..remotes/upstream/main"):
             mis_match = True
             print(
                 f'[FD813].'
-                f'Your local repository is not up'
-                f'to date with production repository'
+                f'Your branch is not up to date with upstream/13.0'
             )
-    if repo.git.rev_list("..remotes/upstream/main"):
-        mis_match = True
+        return mis_match
+    except Exception:
         print(
-            f'[FD813].'
-            f'Your branch is not up to date with upstream/13.0'
+            f'Error'
+            f'You seem not to have an upstream remote'
         )
-    return mis_match
-
 
 def main():
     mis_match = False
