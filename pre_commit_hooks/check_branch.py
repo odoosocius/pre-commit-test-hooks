@@ -9,14 +9,23 @@ def check_remote(mis_match):
     directory = os.getcwd()
     repo = Repo(directory)
     g = git.cmd.Git()
-#     try:
-#         print(g.ls_remote('origin').split('\n'))
-#         print(g.ls_remote('upstream').split('\n'))
-#     except Exception:
-#         print("You seem not to have an upstream remote")
-#         mis_match = True
-#         return mis_match  
+    try:
+        print(g.ls_remote('origin').split('\n'))
+        print(g.ls_remote('upstream').split('\n'))
+    except Exception:
+        print("You seem not to have an upstream remote")
+        mis_match = True
+        return mis_match  
     print(g.remote('get-url','origin'))
+    if( g.remote('get-url','origin') == 
+       'https://github.com/odoosocius/TestCodeRepo.git'):
+        print("Remote origin is pointing to FernUni"
+              "repository and should be linked to your Fork url")
+        mis_match = True
+    if( g.remote('get-url','upstream') != 
+       'https://github.com/odoosocius/TestCodeRepo.git'):
+        print("Your upstream remote is not the FernUni repository")
+        mis_match = True
     return mis_match   
     
 def check_up_to_date(mis_match):
