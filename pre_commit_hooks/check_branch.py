@@ -16,9 +16,6 @@ def check_remote(mis_match):
 #         print("You seem not to have an upstream remote")
 #         mis_match = True
 #         return mis_match  
-    print(g.ls_remote('origin').split('\n'))
-    my_repo = git.Repo('origin')
-    print(my_repo)
     print(g.remote('get-url','origin'))
     return mis_match   
     
