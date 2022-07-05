@@ -12,7 +12,7 @@ def check_remote(mis_match):
     try:
         g.ls_remote('upstream').split('\n')
     except Exception:
-               print(
+        print(
                     f'[AUR813].'
                     f'You seem not to have an upstream remote'
                 )
@@ -21,7 +21,6 @@ def check_remote(mis_match):
     print(g.remote('get-url','origin'))
     if( g.remote('get-url','origin') == 
        'https://github.com/odoosocius/TestCodeRepo.git'):
-
          print(
                     f'[FOR813].'
                     f'Remote origin is pointing to FernUni'
