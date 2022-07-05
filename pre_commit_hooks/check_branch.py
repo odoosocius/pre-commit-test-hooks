@@ -12,19 +12,20 @@ def check_remote(mis_match):
     try:
         g.ls_remote('upstream').split('\n')
     except Exception:
-        print(
-                    f'[AUS813].'
-                    f'Remote origin is pointing to FernUni'
-                    f'repository and should be linked to your Fork url'
+               print(
+                    f'[AUR813].'
+                    f'You seem not to have an upstream remote'
                 )
         mis_match = True
         return mis_match  
     print(g.remote('get-url','origin'))
     if( g.remote('get-url','origin') == 
        'https://github.com/odoosocius/TestCodeRepo.git'):
-        print(
+
+         print(
                     f'[FOR813].'
-                    f'You seem not to have an upstream remote'
+                    f'Remote origin is pointing to FernUni'
+                    f'repository and should be linked to your Fork url'
                 )
         mis_match = True
     if( g.remote('get-url','upstream') != 
