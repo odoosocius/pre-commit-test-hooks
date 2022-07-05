@@ -41,7 +41,8 @@ def check_up_to_date(mis_match):
     
     directory = os.getcwd()
     repo = Repo(directory)
-    for data in repo.remote().fetch("--dry-run"):
+    print(repo.remotes.upstream)
+    for data in repo.remote('upstream').fetch("--dry_run"):
         if data.flags != 4 and (data.remote_ref_path).strip() == "main":
             mis_match = True
             print(
