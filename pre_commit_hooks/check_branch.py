@@ -57,8 +57,9 @@ def check_up_to_date(mis_match):
         return mis_match
     except Exception:
         print(
-            f'Error'
-            f'You seem not to have an upstream remote'
+            f'[FD813]'
+            f'You seem not to have an upstream remote '
+            f'OR seem not to have done a fetch'
         )
         mis_match = True
         return mis_match
