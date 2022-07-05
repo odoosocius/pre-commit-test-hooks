@@ -10,21 +10,30 @@ def check_remote(mis_match):
     repo = Repo(directory)
     g = git.cmd.Git()
     try:
-        print(g.ls_remote('origin').split('\n'))
-        print(g.ls_remote('upstream').split('\n'))
+        g.ls_remote('upstream').split('\n')
     except Exception:
-        print("You seem not to have an upstream remote")
+        print(
+                    f'[AUS813].'
+                    f'Remote origin is pointing to FernUni'
+                    f'repository and should be linked to your Fork url'
+                )
         mis_match = True
         return mis_match  
     print(g.remote('get-url','origin'))
     if( g.remote('get-url','origin') == 
        'https://github.com/odoosocius/TestCodeRepo.git'):
-        print("Remote origin is pointing to FernUni"
-              "repository and should be linked to your Fork url")
+        print(
+                    f'[FOR813].'
+                    f'You seem not to have an upstream remote'
+                )
         mis_match = True
     if( g.remote('get-url','upstream') != 
        'https://github.com/odoosocius/TestCodeRepo.git'):
-        print("Your upstream remote is not the FernUni repository")
+        print(
+                    f'[FUS813].'
+                    f'Your upstream remote is'
+                    f'not the FernUni repository'
+                )
         mis_match = True
     return mis_match   
     
@@ -40,11 +49,11 @@ def check_up_to_date(mis_match):
                     f'Your local repository is not up'
                     f'to date with production repository'
                 )
-    if repo.git.rev_list("..remotes/origin/main"):
+    if repo.git.rev_list("..remotes/upstream/main"):
         mis_match = True
         print(
                     f'[FD813].'
-                    f'Your branch is not up to date with origin/13.0'
+                    f'Your branch is not up to date with upstream/13.0'
                 )
     return mis_match
 
