@@ -12,7 +12,7 @@ def check_migration_folder(dir_list,condition_failed):
         path = os.getcwd()+'/'+directory
         print(os.getcwd()+'/'+directory+'/'+'migrations')
         for path in os.listdir(path):
-            print(true)
+            print(path)
             if path=='migrations':
                 print(True)
                 
