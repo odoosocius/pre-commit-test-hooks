@@ -12,9 +12,13 @@ def check_migration_folder(dir_list,condition_failed):
         path = os.getcwd()+'/'+directory
         print(os.getcwd()+'/'+directory+'/'+'migrations')
         for path in os.listdir(path):
-            print(path)
+            condition_failed = True
             if path=='migrations':
-                print(True)
+                print(
+            f'[MF813].'
+            f'No migrations folder should be included in any changed files'
+        )
+         
                 
         
     return condition_failed
@@ -30,6 +34,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     dir_list = []
     for filename in args.filenames:
+        file_name = os.path.basename(filename.root().file)
+        is_manifest = filename in settings.MANIFEST_FILES
         dir1 = os.path.dirname(filename).split('/')
         if dir1[0] != '':
             dir_list.append(dir1[0])
