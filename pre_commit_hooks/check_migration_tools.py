@@ -23,7 +23,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     for filename in args.filenames:
         dir_3 = os.path.abspath(filename)
         dir1 = os.path.dirname(filename)
-        dir2 = os.path.abspath(filename)
+        dir2 = os.path.normpath(filename)
+        dir4 = os.path.normpath(filename)
+        p = PurePosixPath(filename)
+        print(p.parent)
         print(dir_3)
         print(dir1)
         print(dir2)
