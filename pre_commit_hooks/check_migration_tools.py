@@ -24,7 +24,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         dir = os.path.dirname(filename).split('/')
         dir_list.append(dir)
     print(dir_list)
-    dir_list  = list(set(dir_list))
+    dir_list  = set(dir_list)
     condition_failed = check_migration_folder(dir_list,condition_failed)
 
 
