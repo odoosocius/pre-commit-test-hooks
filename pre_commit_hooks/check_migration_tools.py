@@ -21,8 +21,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     dir_list = []
     for filename in args.filenames:
-        dir = os.path.abspath(filename)
-        dir_list.append(dir)
+        dir_3 = os.path.abspath(filename)
+        dir1 = os.path.dirname(filename)
+        dir2 = os.path.abspath(filename)
+        print(dir_3)
+        print(dir1)
+        print(dir2)
+#         dir_list.append(dir)
     print(dir_list)
     dir_list  = set(dir_list)
     condition_failed = check_migration_folder(dir_list,condition_failed)
