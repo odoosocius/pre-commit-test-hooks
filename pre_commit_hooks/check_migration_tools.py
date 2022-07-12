@@ -69,11 +69,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     dir_list = []
     for filename in args.filenames:
+        print("is working",filename)
         file_name = os.path.basename(filename)
         is_manifest = file_name in MANIFEST_FILES
         if is_manifest:
             condition_failed = version_check(filename,condition_failed)
-        print("is working",is_manifest)
+            print("is working",filename,is_manifest)
         dir1 = os.path.dirname(filename).split('/')
         if dir1[0] != '':
             dir_list.append(dir1[0])
