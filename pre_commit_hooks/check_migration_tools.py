@@ -16,6 +16,10 @@ MANIFEST_FILES = [
 
 
 def check_migration_folder(dir_list,condition_failed):
+    """checks if the uploded module has migration folder
+    Returns: The value condition_failed = true if module hs 
+    migration folder  
+    """
     for directory in dir_list:
         print(directory)
         path = os.getcwd()+'/'+directory
@@ -26,16 +30,13 @@ def check_migration_folder(dir_list,condition_failed):
                 print(
             f'[MF813].'
             f'No migrations folder should be included in any changed files'
-        )
-         
-                
-        
+        )   
     return condition_failed
 
 def version_check(filename,condition_failed):
     with open(filename) as f_manifest:
-        self.manifest_dict = ast.literal_eval(f_manifest.read())
-        print(self.manifest_dict)
+        manifest_dict = ast.literal_eval(f_manifest.read())
+        print(manifest_dict)
 
 
 
