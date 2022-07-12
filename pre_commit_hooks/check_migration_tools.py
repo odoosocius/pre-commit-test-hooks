@@ -40,7 +40,7 @@ def check_migration_folder(dir_list,condition_failed):
                 print(
             f'[MF813].'
             f'No migrations folder should be included in any changed files'
-        )   
+        )
     return condition_failed
 
 
@@ -54,15 +54,15 @@ def version_check(filename,condition_failed):
         print(check_versions)
         version = LooseVersion(version)
         print(version)
-               min_odoo_version = check_versions.get(
+        min_odoo_version = check_versions.get(
             'min_odoo_version')
         if version < min_odoo_version:
             print(
                     f'[MV813].'
                     f'{filename}: the version of module should be greater than "15.0"'
-                )
-        
-            
+            )
+
+
 
 
 
