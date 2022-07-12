@@ -34,31 +34,28 @@ def check_migration_folder(dir_list,condition_failed):
         path = os.getcwd()+'/'+directory
         for path in os.listdir(path):
             condition_failed = True
-            if path=='migrations':
+            if path =='migrations':
                 print(
-            f'[MF813].'
-            f'{directory}'
-            f'No migrations folder should be included in any changed files'
-        )
+                    f'[MF813].'
+                    f'{directory} contain migration folder'
+                    f'No migrations folder should be included '
+                    f'in any changed files'
+                )
     return condition_failed
 
 
 def version_check(filename,condition_failed):
     with open(filename) as f_manifest:
         manifest_dict = ast.literal_eval(f_manifest.read())
-        print(manifest_dict)
         version = manifest_dict.get("version")
-        print(version)
         check_versions = odoo_check_versions.get("name_check", {})
-        print(check_versions)
-        version = LooseVersion(version)
-        print(version)
         min_odoo_version = check_versions.get(
             'min_odoo_version')
         if version < min_odoo_version:
             print(
                     f'[MV813].'
-                    f'{filename}: the version of module should be greater than "15.0"'
+                    f'{filename}: contain version less than 15.0'
+                    f' the version of module should be greater than "15.0"'
             )
 
 
@@ -73,7 +70,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     dir_list = []
     for filename in args.filenames:
-        print("is working",filename)
         file_name = os.path.basename(filename)
         is_manifest = file_name in MANIFEST_FILES
         if is_manifest:
@@ -82,7 +78,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         dir1 = os.path.dirname(filename).split('/')
         if dir1[0] != '':
             dir_list.append(dir1[0])
-    print(dir_list,"final list")
     dir_list  = set(dir_list)
     condition_failed = check_migration_folder(dir_list,condition_failed)
 
