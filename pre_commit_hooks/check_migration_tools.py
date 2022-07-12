@@ -31,14 +31,13 @@ def check_migration_folder(dir_list,condition_failed):
     migration folder  
     """
     for directory in dir_list:
-        print(directory)
         path = os.getcwd()+'/'+directory
-        print(os.getcwd()+'/'+directory+'/'+'migrations')
         for path in os.listdir(path):
             condition_failed = True
             if path=='migrations':
                 print(
             f'[MF813].'
+            f'{directory}'
             f'No migrations folder should be included in any changed files'
         )
     return condition_failed
