@@ -22,13 +22,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     dir_list = []
     for filename in args.filenames:
-        dir_3 = os.path.abspath(filename)
-        dir1 = os.path.dirname(filename)
-        dir2 = os.path.normpath(filename)
-        dir4 = os.path.normpath(filename)
-        print(dir_3)
-        print(dir1)
-        print(dir2)
+        dir1 = os.path.dirname(filename).split('/')
+        if dir1[0] != '':
+            dir_list.append(dir1[0])
 #         dir_list.append(dir)
     print(dir_list)
     dir_list  = set(dir_list)
