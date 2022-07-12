@@ -4,6 +4,7 @@ import argparse
 import re
 import os.path
 import ast
+import astroid
 from distutils.version import LooseVersion
 from pathlib import Path
 from typing import Sequence
@@ -67,6 +68,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     condition_failed = True
     # condition_failed = check_migration_folder(condition_failed)
     parser = argparse.ArgumentParser()
+    print(parser)
+    if isinstance(parser, astroid.Attribute) and isinstance(parser.expr, astroid.Name):
+        print("funny works")
     parser.add_argument('filenames', nargs='*')
     args = parser.parse_args(argv)
     print(args)
