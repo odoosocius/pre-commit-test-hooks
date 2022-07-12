@@ -69,9 +69,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     # condition_failed = check_migration_folder(condition_failed)
     parser = argparse.ArgumentParser()
     print(parser)
+    print(isinstance(parser, astroid.Attribute))
+    print(isinstance(parser.expr, astroid.Name))
+
     if isinstance(parser, astroid.Attribute) and isinstance(parser.expr, astroid.Name):
         print("funny works")
     parser.add_argument('filenames', nargs='*')
+    print(parser)
+    print(isinstance(parser, astroid.Attribute))
+    print(isinstance(parser.expr, astroid.Name))
     args = parser.parse_args(argv)
     print(args)
     dir_list = []
