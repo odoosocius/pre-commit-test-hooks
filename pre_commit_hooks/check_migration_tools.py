@@ -67,14 +67,13 @@ def version_check(filename,condition_failed):
 def main(argv: Sequence[str] | None = None) -> int:
     condition_failed = True
     # condition_failed = check_migration_folder(condition_failed)
+    
     parser = argparse.ArgumentParser()
-    print(parser)
-    print(isinstance(parser, astroid.Attribute))
     parser.add_argument('filenames', nargs='*')
-    print(parser)
-    print(argv)
     args = parser.parse_args(argv)
-    print(args)
+    asfrgss = (getattr(parser, 'args', None) or []) + \
+        (getattr(parser, 'keywords', None) or [])
+    print(asfrgss)
     dir_list = []
     for filename in args.filenames:
         file_name = os.path.basename(filename)
