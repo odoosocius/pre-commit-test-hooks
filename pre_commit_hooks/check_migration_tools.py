@@ -42,7 +42,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     dir_list = []
     for filename in args.filenames:
-        file_name = os.path.basename(filename.root().file)
+        file_name = os.path.basename(filename)
         is_manifest = file_name in MANIFEST_FILES
         print("is working",is_manifest)
         dir1 = os.path.dirname(filename).split('/')
