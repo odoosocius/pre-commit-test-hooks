@@ -9,7 +9,7 @@ from typing import Sequence
 def check_migration_folder(dir_list,condition_failed):
     for directory in dir_list:
         print(directory)
-        print(join(os.getcwd(),'/',directory))
+        print(os.getcwd(),+,'/',+,directory))
     return condition_failed
 
 
