@@ -22,6 +22,8 @@ odoo_check_versions = {
             }
         }
 
+DFTL_VALID_ODOO_VERSIONS = [ '15.0',
+]
 
 def check_migration_folder(dir_list,condition_failed):
     """checks if the uploded module has migration folder
@@ -52,12 +54,15 @@ def version_check(filename,condition_failed):
         print(check_versions)
         version = LooseVersion(version)
         print(version)
-        # min_odoo_version = LooseVersion(odoo_check_versions.get(
-        #     'min_odoo_version', DFTL_VALID_ODOO_VERSIONS[0]))
-        # max_odoo_version = LooseVersion(odoo_check_versions.get(
-        #     'max_odoo_version', DFTL_VALID_ODOO_VERSIONS[-1]))
-
-
+               min_odoo_version = check_versions.get(
+            'min_odoo_version')
+        if version < min_odoo_version:
+            print(
+                    f'[MV813].'
+                    f'{filename}: the version of module should be greater than "15.0"'
+                )
+        
+            
 
 
 
