@@ -70,10 +70,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     print(parser)
     print(isinstance(parser, astroid.Attribute))
-    print(isinstance(parser.expr, astroid.Name))
-
-    if isinstance(parser, astroid.Attribute) and isinstance(parser.expr, astroid.Name):
-        print("funny works")
     parser.add_argument('filenames', nargs='*')
     print(parser)
     print(isinstance(parser, astroid.Attribute))
