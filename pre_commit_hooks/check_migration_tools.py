@@ -4,6 +4,7 @@ import argparse
 import re
 import os.path
 import ast
+from distutils.version import LooseVersion
 from pathlib import Path
 from typing import Sequence
 
@@ -13,6 +14,13 @@ MANIFEST_FILES = [
     '__openerp__.py',
     '__terp__.py',
 ]
+
+odoo_check_versions = {
+            'name_check': {
+                'min_odoo_version': '15.0',
+                'max_odoo_version': '15.0',
+            }
+        }
 
 
 def check_migration_folder(dir_list,condition_failed):
@@ -33,10 +41,23 @@ def check_migration_folder(dir_list,condition_failed):
         )   
     return condition_failed
 
+
 def version_check(filename,condition_failed):
     with open(filename) as f_manifest:
         manifest_dict = ast.literal_eval(f_manifest.read())
         print(manifest_dict)
+        version = manifest_dict.get("version")
+        print(version)
+        check_versions = odoo_check_versions.get("name_check", {})
+        print(check_versions)
+        version = LooseVersion(version)
+        print(version)
+        # min_odoo_version = LooseVersion(odoo_check_versions.get(
+        #     'min_odoo_version', DFTL_VALID_ODOO_VERSIONS[0]))
+        # max_odoo_version = LooseVersion(odoo_check_versions.get(
+        #     'max_odoo_version', DFTL_VALID_ODOO_VERSIONS[-1]))
+
+
 
 
 
