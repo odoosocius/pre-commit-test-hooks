@@ -6,6 +6,14 @@ import os.path
 from pathlib import Path
 from typing import Sequence
 
+MANIFEST_FILES = [
+    '__manifest__.py',
+    '__odoo__.py',
+    '__openerp__.py',
+    '__terp__.py',
+]
+
+
 def check_migration_folder(dir_list,condition_failed):
     for directory in dir_list:
         print(directory)
@@ -35,7 +43,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     dir_list = []
     for filename in args.filenames:
         file_name = os.path.basename(filename.root().file)
-        is_manifest = filename in settings.MANIFEST_FILES
+        is_manifest = file_name in MANIFEST_FILES
+        print("is working",is_manifest)
         dir1 = os.path.dirname(filename).split('/')
         if dir1[0] != '':
             dir_list.append(dir1[0])
