@@ -37,7 +37,7 @@ def check_migration_folder(dir_list,condition_failed):
             if path =='migrations':
                 print(
                     f'[MF813].'
-                    f'{directory} contain migration folder'
+                    f'{directory} contain migration folder '
                     f'No migrations folder should be included '
                     f'in any changed files'
                 )
@@ -59,6 +59,7 @@ def version_check(filename,condition_failed):
             )
 
 
+# def
 
 
 
@@ -68,17 +69,17 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*')
     args = parser.parse_args(argv)
+    print(args)
     dir_list = []
     for filename in args.filenames:
         file_name = os.path.basename(filename)
         is_manifest = file_name in MANIFEST_FILES
         if is_manifest:
             condition_failed = version_check(filename,condition_failed)
-            print("is working",filename,is_manifest)
         dir1 = os.path.dirname(filename).split('/')
         if dir1[0] != '':
             dir_list.append(dir1[0])
-    dir_list  = set(dir_list)
+    dir_list = set(dir_list)
     condition_failed = check_migration_folder(dir_list,condition_failed)
 
 
