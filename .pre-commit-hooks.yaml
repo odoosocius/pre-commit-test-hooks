@@ -14,3 +14,8 @@
     description: check branch is up to date
     entry: check-up-to-date
     language: python
+-   id: check-migration-tools
+    name: check migration condition
+    description: check if all migration condition are met
+    entry: check-migration-tools
+    language: python
