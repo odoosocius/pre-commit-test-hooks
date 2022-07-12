@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import re
 import os.path
+from pathlib import Path
 from typing import Sequence
 
 def check_migration_folder(dir_list,condition_failed):
