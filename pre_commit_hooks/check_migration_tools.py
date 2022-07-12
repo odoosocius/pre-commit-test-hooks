@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import re
 import os.path
+import ast
 from pathlib import Path
 from typing import Sequence
 
@@ -31,6 +32,10 @@ def check_migration_folder(dir_list,condition_failed):
         
     return condition_failed
 
+def version_check(filename,condition_failed):
+    with open(filename) as f_manifest:
+        self.manifest_dict = ast.literal_eval(f_manifest.read())
+        print(self.manifest_dict)
 
 
 
@@ -44,6 +49,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     for filename in args.filenames:
         file_name = os.path.basename(filename)
         is_manifest = file_name in MANIFEST_FILES
+        if is_manifest:
+            condition_failed = version_check(filename,condition_failed)
         print("is working",is_manifest)
         dir1 = os.path.dirname(filename).split('/')
         if dir1[0] != '':
