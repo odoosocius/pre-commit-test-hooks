@@ -21,7 +21,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     dir_list = []
     for filename in args.filenames:
-        dir = os.path.dirname(filename)
+        dir = os.path.abspath(filename)
         dir_list.append(dir)
     print(dir_list)
     dir_list  = set(dir_list)
