@@ -72,8 +72,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     print(isinstance(parser, astroid.Attribute))
     parser.add_argument('filenames', nargs='*')
     print(parser)
-    print(isinstance(parser, astroid.Attribute))
-    print(isinstance(parser.expr, astroid.Name))
+    print(argv)
     args = parser.parse_args(argv)
     print(args)
     dir_list = []
