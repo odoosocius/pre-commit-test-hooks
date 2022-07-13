@@ -121,11 +121,8 @@ def check_traw(xml_file,condition_failed):
 
     doc = get_xml_records(xml_file)
     for node in doc.xpath(xpath):
-        print(node)
         directive = next(
             iter(set(node.attrib) & deprecated_directives))
-        print(directive)
-        print(node.sourceline)
         if directive:
             condition_failed = True
             print(
@@ -149,16 +146,22 @@ def check_invisible_readonly(xml_file,condition_failed):
     )
     doc = get_xml_records(xml_file)
     for node in doc.xpath(xpath):
-        print(node)
         directive = next(
             iter(set(node.attrib) & deprecated_directives))
         print(directive)
         print(node.sourceline)
+        if directive:
+            condition_failed = True
+            print(
+                f'[WF814].'
+                f'{xml_file}: {node.sourceline} contain {directive},'
+                f' ‘invisible’ and ‘readonly’ should be used with ‘attrs’'
+            )
 
     return condition_failed
 
 
-        
+
 
 def main(argv: Sequence[str] | None = None) -> int:
     condition_failed = True
@@ -175,7 +178,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         file_name = os.path.basename(filename)
         if (
                 re.search("[\w.-]xml$", file_name)):
-            condition_failed = check_traw(filename, condition_failed)
+            # condition_failed = check_traw(filename, condition_failed)
             condition_failed = check_invisible_readonly(
                 filename, condition_failed)
 
