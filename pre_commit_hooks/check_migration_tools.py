@@ -27,6 +27,7 @@ odoo_check_versions = {
 DFTL_VALID_ODOO_VERSIONS = [ '15.0',
 ]
 
+
 def check_migration_folder(dir_list,condition_failed):
     """checks if the uploded module has migration folder
     Returns: The value condition_failed = true if module hs 
@@ -45,6 +46,26 @@ def check_migration_folder(dir_list,condition_failed):
                 )
     return condition_failed
 
+
+def version_check(filename, condition_failed):
+    """ checking if version is less than 15.0"""
+    with open(filename) as f_manifest:
+        manifest_dict = ast.literal_eval(f_manifest.read())
+        # returns manifest as dict
+        version = manifest_dict.get("version")
+        check_versions = odoo_check_versions.get("name_check", {})
+        min_odoo_version = check_versions.get(
+            'min_odoo_version')
+        if version < min_odoo_version:
+            print(
+                f'[MV813].'
+                f'{filename}: contain version less than 15.0'
+                f' the version of module should be greater than "15.0"'
+            )
+            condition_failed = True
+    return condition_failed
+
+
 def parse_xml(xml_file, raise_if_error=False):
     """Get xml parsed.
     :param xml_file: Path of file xml
@@ -52,37 +73,16 @@ def parse_xml(xml_file, raise_if_error=False):
         if there is syntax error return string error message
     """
     if not os.path.isfile(xml_file):
-        print("failed here")
         return etree.Element("__empty__")
     try:
         with open(xml_file, "rb") as f_obj:
             doc = etree.parse(f_obj)
     except etree.XMLSyntaxError as xmlsyntax_error_exception:
-        print("error occured")
         if raise_if_error:
             raise xmlsyntax_error_exception
         return etree.Element("__empty__")
-    print("am i seeing things",)
     return doc
 
-def version_check(filename,condition_failed):
-    """ checking if version is less than 15.0"""
-    with open(filename) as f_manifest:
-        manifest_dict = ast.literal_eval(f_manifest.read())
-        # returns manifest as dict 
-        version = manifest_dict.get("version")
-        check_versions = odoo_check_versions.get("name_check", {})
-        min_odoo_version = check_versions.get(
-            'min_odoo_version')
-        if version < min_odoo_version:
-            print(
-                    f'[MV813].'
-                    f'{filename}: contain version less than 15.0'
-                    f' the version of module should be greater than "15.0"'
-            )
-            condition_failed = True
-    return condition_failed
-        
 
 def get_xml_records(xml_file, model=None, more=None):
     """Get tag `record` of a openerp xml file.
@@ -106,17 +106,6 @@ def get_xml_records(xml_file, model=None, more=None):
     doc = parse_xml(xml_file)
     # root = etree.fromstring(doc, etree.HTMLParser())
     return doc
-    print("is doc" ,doc)
-    for node in doc.xpath(xpath):
-        print(node)
-        directive = next(
-            iter(set(node.attrib) & deprecated_directives))
-        print(directive)
-        print(node.sourceline)
-    # print(etree.fromstring(doc, etree.HTMLParser()))
-    # return doc.xpath("/openerp//record" + model_filter + more_filter) + \
-    #     doc.xpath("/odoo//record" + model_filter + more_filter)
-    # print(doc.xpath("/openerp//record" + model_filter + more_filter) + doc.xpath("/odoo//record" + model_filter + more_filter))
 
 
 def check_traw(xml_file,condition_failed):
@@ -149,18 +138,27 @@ def check_traw(xml_file,condition_failed):
 
 
 def check_invisible_readonly(xml_file,condition_failed):
+    deprecated_directives = {
+        'readonly',
+        'invisible',
+    }
+    directive_attrs = '|'.join('@%s' % d for d in deprecated_directives)
+    xpath = '|'.join(
+        '/%s//*[%s]' % (tag, directive_attrs)
+        for tag in ('odoo', 'openerp')
+    )
     doc = get_xml_records(xml_file)
+    for node in doc.xpath(xpath):
+        print(node)
+        directive = next(
+            iter(set(node.attrib) & deprecated_directives))
+        print(directive)
+        print(node.sourceline)
 
     return condition_failed
 
 
-            
-
-    
-
-
-
-
+        
 
 def main(argv: Sequence[str] | None = None) -> int:
     condition_failed = True
