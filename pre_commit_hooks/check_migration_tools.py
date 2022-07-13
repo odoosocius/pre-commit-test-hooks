@@ -93,15 +93,6 @@ def get_xml_records(xml_file, model=None, more=None):
     :return: List of lxml `record` nodes
         If there is syntax error return []
     """
-    deprecated_directives = {
-        't-raw',
-    }
-    directive_attrs = '|'.join('@%s' % d for d in deprecated_directives)
-    xpath = '|'.join(
-        '/%s//template//*[%s]' % (tag, directive_attrs)
-        for tag in ('odoo', 'openerp')
-    )
-
     if not xml_file:
         return []
     if model is None:
@@ -114,6 +105,7 @@ def get_xml_records(xml_file, model=None, more=None):
         more_filter = more
     doc = parse_xml(xml_file)
     # root = etree.fromstring(doc, etree.HTMLParser())
+    return doc
     print("is doc" ,doc)
     for node in doc.xpath(xpath):
         print(node)
@@ -127,8 +119,33 @@ def get_xml_records(xml_file, model=None, more=None):
     # print(doc.xpath("/openerp//record" + model_filter + more_filter) + doc.xpath("/odoo//record" + model_filter + more_filter))
 
 
-def check_traw(xml_file):
-    get_xml_records(xml_file)
+def check_traw(xml_file,condition_failed):
+    deprecated_directives = {
+        't-raw',
+    }
+    directive_attrs = '|'.join('@%s' % d for d in deprecated_directives)
+    xpath = '|'.join(
+        '/%s//template//*[%s]' % (tag, directive_attrs)
+        for tag in ('odoo', 'openerp')
+    )
+
+    doc = get_xml_records(xml_file)
+    for node in doc.xpath(xpath):
+        print(node)
+        directive = next(
+            iter(set(node.attrib) & deprecated_directives))
+        print(directive)
+        print(node.sourceline)
+        if directive:
+            condition_failed = True
+            print(
+                f'[WF813].'
+                f'{xml_file}: {node.sourceline} contain t-raw'
+                f' T-Raw has been replaced by '
+                f'T-OUT or T-ESC'
+            )
+    return condition_failed
+            
 
     
 
@@ -151,7 +168,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         file_name = os.path.basename(filename)
         if (
                 re.search("[\w.-]xml$", file_name)):
-            check_traw(filename,)
+            condition_failed = check_traw(filename,condition_failed)
 
         is_manifest = file_name in MANIFEST_FILES
         if is_manifest:
