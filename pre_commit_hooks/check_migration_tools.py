@@ -93,6 +93,15 @@ def get_xml_records(xml_file, model=None, more=None):
     :return: List of lxml `record` nodes
         If there is syntax error return []
     """
+    deprecated_directives = {
+        't-raw',
+    }
+    directive_attrs = '|'.join('@%s' % d for d in deprecated_directives)
+    xpath = '|'.join(
+        '/%s//template//*[%s]' % (tag, directive_attrs)
+        for tag in ('odoo', 'openerp')
+    )
+
     if not xml_file:
         return []
     if model is None:
@@ -108,6 +117,9 @@ def get_xml_records(xml_file, model=None, more=None):
     print("is doc" ,doc)
     for node in doc.xpath(xpath):
         print(node)
+        directive = next(
+            iter(set(node.attrib) & deprecated_directives))
+        print(directive)
     # print(etree.fromstring(doc, etree.HTMLParser()))
     # return doc.xpath("/openerp//record" + model_filter + more_filter) + \
     #     doc.xpath("/odoo//record" + model_filter + more_filter)
