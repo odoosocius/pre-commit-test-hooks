@@ -4,6 +4,7 @@ import argparse
 import re
 import os.path
 import ast
+from lxml import etree
 import astroid
 from distutils.version import LooseVersion
 from pathlib import Path
@@ -34,8 +35,8 @@ def check_migration_folder(dir_list,condition_failed):
     for directory in dir_list:
         path = os.getcwd()+'/'+directory
         for path in os.listdir(path):
-            condition_failed = True
             if path =='migrations':
+                condition_failed = True
                 print(
                     f'[MF813].'
                     f'{directory} contain migration folder '
@@ -44,10 +45,28 @@ def check_migration_folder(dir_list,condition_failed):
                 )
     return condition_failed
 
+def parse_xml(xml_file, raise_if_error=False):
+    """Get xml parsed.
+    :param xml_file: Path of file xml
+    :return: Doc parsed (lxml.etree object)
+        if there is syntax error return string error message
+    """
+    if not os.path.isfile(xml_file):
+        return etree.Element("__empty__")
+    try:
+        with open(xml_file, "rb") as f_obj:
+            doc = etree.parse(f_obj)
+    except etree.XMLSyntaxError as xmlsyntax_error_exception:
+        if raise_if_error:
+            raise xmlsyntax_error_exception
+        return etree.Element("__empty__")
+    return doc
 
 def version_check(filename,condition_failed):
+    """ checking if version is less than 15.0"""
     with open(filename) as f_manifest:
         manifest_dict = ast.literal_eval(f_manifest.read())
+        # returns manifest as dict 
         version = manifest_dict.get("version")
         check_versions = odoo_check_versions.get("name_check", {})
         min_odoo_version = check_versions.get(
@@ -58,9 +77,36 @@ def version_check(filename,condition_failed):
                     f'{filename}: contain version less than 15.0'
                     f' the version of module should be greater than "15.0"'
             )
+            condition_failed = True
+    return condition_failed
+        
 
+def get_xml_records(xml_file, model=None, more=None):
+    """Get tag `record` of a openerp xml file.
+    :param xml_file: Path of file xml
+    :param model: String with record model to filter.
+                if model is None then get all.
+                Default None.
+    :return: List of lxml `record` nodes
+        If there is syntax error return []
+    """
+    if not xml_file:
+        return []
+    xml_file = xml_file[0]
+    if model is None:
+        model_filter = ''
+    else:
+        model_filter = "[@model='{model}']".format(model=model)
+    if more is None:
+        more_filter = ''
+    else:
+        more_filter = more
+    doc = parse_xml(xml_file)
+    print("is doc" ,doc)
+    # return doc.xpath("/openerp//record" + model_filter + more_filter) + \
+    #     doc.xpath("/odoo//record" + model_filter + more_filter)
+    print(doc.xpath("/openerp//record" + model_filter + more_filter) + doc.xpath("/odoo//record" + model_filter + more_filter))
 
-# def
 
 
 
@@ -77,6 +123,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     dir_list = []
     for filename in args.filenames:
         file_name = os.path.basename(filename)
+        if (
+                    re.search("[\w.-]xml$", file_name)
+            ):
+            get_xml_records(filename,)
+
         is_manifest = file_name in MANIFEST_FILES
         if is_manifest:
             condition_failed = version_check(filename,condition_failed)
