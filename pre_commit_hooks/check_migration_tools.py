@@ -109,11 +109,12 @@ def get_xml_records(xml_file, model=None, more=None):
 
 
 def check_traw(xml_file,condition_failed):
+    """Function to check if the xml contains t-raw or not """
     deprecated_directives = {
         't-raw',
-        'invisible',
     }
     directive_attrs = '|'.join('@%s' % d for d in deprecated_directives)
+    # checking for pattern
     xpath = '|'.join(
         '/%s//template//*[%s]' % (tag, directive_attrs)
         for tag in ('odoo', 'openerp')
@@ -135,6 +136,7 @@ def check_traw(xml_file,condition_failed):
 
 
 def check_invisible_readonly(xml_file,condition_failed):
+    """check if view contain invisible or readonly without attrs"""
     deprecated_directives = {
         'readonly',
         'invisible',
@@ -165,7 +167,6 @@ def check_invisible_readonly(xml_file,condition_failed):
 
 def main(argv: Sequence[str] | None = None) -> int:
     condition_failed = True
-    # condition_failed = check_migration_folder(condition_failed)
     
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*')
@@ -181,7 +182,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             # condition_failed = check_traw(filename, condition_failed)
             condition_failed = check_invisible_readonly(
                 filename, condition_failed)
+        if (
+                re.search("[\w.-]py$", file_name)):
+                with open(filename) as f_manifest:
+                    print(ast.literal_eval(f_manifest.read()))
 
+            
         is_manifest = file_name in MANIFEST_FILES
         if is_manifest:
             condition_failed = version_check(filename,condition_failed)
