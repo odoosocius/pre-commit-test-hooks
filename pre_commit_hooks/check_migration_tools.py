@@ -185,7 +185,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if (
                 re.search("[\w.-]py$", file_name)):
                 with open(filename) as f_manifest:
-                    print(ast.literal_eval(f_manifest.read()))
+                    print(ast.parse(f_manifest.read()))
 
             
         is_manifest = file_name in MANIFEST_FILES
