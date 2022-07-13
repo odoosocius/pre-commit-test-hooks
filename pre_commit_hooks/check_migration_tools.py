@@ -120,6 +120,7 @@ def get_xml_records(xml_file, model=None, more=None):
         directive = next(
             iter(set(node.attrib) & deprecated_directives))
         print(directive)
+        print(node.sourceline)
     # print(etree.fromstring(doc, etree.HTMLParser()))
     # return doc.xpath("/openerp//record" + model_filter + more_filter) + \
     #     doc.xpath("/odoo//record" + model_filter + more_filter)
