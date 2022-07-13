@@ -102,7 +102,9 @@ def get_xml_records(xml_file, model=None, more=None):
     else:
         more_filter = more
     doc = parse_xml(xml_file)
-    print("is doc" ,doc)
+    root = etree.fromstring(doc, etree.HTMLParser())
+    print("is doc" ,root)
+    print()
     # return doc.xpath("/openerp//record" + model_filter + more_filter) + \
     #     doc.xpath("/odoo//record" + model_filter + more_filter)
     print(doc.xpath("/openerp//record" + model_filter + more_filter) + doc.xpath("/odoo//record" + model_filter + more_filter))
@@ -135,7 +137,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if dir1[0] != '':
             dir_list.append(dir1[0])
     dir_list = set(dir_list)
-    condition_failed = check_migration_folder(dir_list,condition_failed)
+    # condition_failed = check_migration_folder(dir_list,condition_failed)
 
 
         # if '' in dir:
