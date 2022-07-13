@@ -122,6 +122,7 @@ def get_xml_records(xml_file, model=None, more=None):
 def check_traw(xml_file,condition_failed):
     deprecated_directives = {
         't-raw',
+        'invisible',
     }
     directive_attrs = '|'.join('@%s' % d for d in deprecated_directives)
     xpath = '|'.join(
@@ -140,11 +141,19 @@ def check_traw(xml_file,condition_failed):
             condition_failed = True
             print(
                 f'[WF813].'
-                f'{xml_file}: {node.sourceline} contain t-raw'
+                f'{xml_file}: {node.sourceline} contain t-raw,'
                 f' T-Raw has been replaced by '
                 f'T-OUT or T-ESC'
             )
     return condition_failed
+
+
+def check_invisible_readonly(xml_file,condition_failed):
+    doc = get_xml_records(xml_file)
+
+    return condition_failed
+
+
             
 
     
@@ -168,7 +177,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         file_name = os.path.basename(filename)
         if (
                 re.search("[\w.-]xml$", file_name)):
-            condition_failed = check_traw(filename,condition_failed)
+            condition_failed = check_traw(filename, condition_failed)
+            condition_failed = check_invisible_readonly(
+                filename, condition_failed)
 
         is_manifest = file_name in MANIFEST_FILES
         if is_manifest:
