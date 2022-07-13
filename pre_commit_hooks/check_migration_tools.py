@@ -95,7 +95,6 @@ def get_xml_records(xml_file, model=None, more=None):
     """
     if not xml_file:
         return []
-    xml_file = xml_file[0]
     if model is None:
         model_filter = ''
     else:
