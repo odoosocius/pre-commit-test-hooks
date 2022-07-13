@@ -62,6 +62,7 @@ def parse_xml(xml_file, raise_if_error=False):
         if raise_if_error:
             raise xmlsyntax_error_exception
         return etree.Element("__empty__")
+    print("am i seeing things",)
     return doc
 
 def version_check(filename,condition_failed):
@@ -104,8 +105,8 @@ def get_xml_records(xml_file, model=None, more=None):
     else:
         more_filter = more
     doc = parse_xml(xml_file)
-    root = etree.fromstring(doc, etree.HTMLParser())
-    print("is doc" ,root)
+    # root = etree.fromstring(doc, etree.HTMLParser())
+    print("is doc" ,doc)
     print()
     # return doc.xpath("/openerp//record" + model_filter + more_filter) + \
     #     doc.xpath("/odoo//record" + model_filter + more_filter)
