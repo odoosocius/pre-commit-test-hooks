@@ -163,8 +163,6 @@ def check_invisible_readonly(xml_file,condition_failed):
     return condition_failed
 
 
-
-
 def main(argv: Sequence[str] | None = None) -> int:
     condition_failed = True
     
@@ -176,22 +174,25 @@ def main(argv: Sequence[str] | None = None) -> int:
     print(asfrgss)
     dir_list = []
     for filename in args.filenames:
+        # os.path.basename to get path
         file_name = os.path.basename(filename)
+        # search for files that end with .xml
         if (
                 re.search("[\w.-]xml$", file_name)):
-            # condition_failed = check_traw(filename, condition_failed)
+            condition_failed = check_traw(filename, condition_failed)
             condition_failed = check_invisible_readonly(
                 filename, condition_failed)
+        # # search for files that end with .py
         if (
                 re.search("[\w.-]py$", file_name)):
-                with open(filename) as f_manifest:
+                with open(filename) as f_py_file:
                     print(filename)
-                    print(f_manifest)
-                    print(f_manifest.read())
+                    print(f_py_file)
+                    print(f_py_file.read())
                     # print(f_manifest.read())
-                    print(ast.dump(ast.parse(f_manifest.read())))
+                    print(ast.dump(ast.parse(f_py_file.read())))
 
-            
+        #  checks for manifest  file
         is_manifest = file_name in MANIFEST_FILES
         if is_manifest:
             condition_failed = version_check(filename,condition_failed)
