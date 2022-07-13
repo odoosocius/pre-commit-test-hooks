@@ -52,11 +52,13 @@ def parse_xml(xml_file, raise_if_error=False):
         if there is syntax error return string error message
     """
     if not os.path.isfile(xml_file):
+        print("failed here")
         return etree.Element("__empty__")
     try:
         with open(xml_file, "rb") as f_obj:
             doc = etree.parse(f_obj)
     except etree.XMLSyntaxError as xmlsyntax_error_exception:
+        print("error occured")
         if raise_if_error:
             raise xmlsyntax_error_exception
         return etree.Element("__empty__")
