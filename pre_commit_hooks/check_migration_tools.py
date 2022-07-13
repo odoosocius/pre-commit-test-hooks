@@ -106,10 +106,18 @@ def get_xml_records(xml_file, model=None, more=None):
     doc = parse_xml(xml_file)
     # root = etree.fromstring(doc, etree.HTMLParser())
     print("is doc" ,doc)
-    print(etree.fromstring(doc, etree.HTMLParser()))
+    for node in doc.xpath(xpath):
+        print(node)
+    # print(etree.fromstring(doc, etree.HTMLParser()))
     # return doc.xpath("/openerp//record" + model_filter + more_filter) + \
     #     doc.xpath("/odoo//record" + model_filter + more_filter)
-    print(doc.xpath("/openerp//record" + model_filter + more_filter) + doc.xpath("/odoo//record" + model_filter + more_filter))
+    # print(doc.xpath("/openerp//record" + model_filter + more_filter) + doc.xpath("/odoo//record" + model_filter + more_filter))
+
+
+def check_traw(xml_file):
+    get_xml_records(xml_file)
+
+    
 
 
 
@@ -129,9 +137,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     for filename in args.filenames:
         file_name = os.path.basename(filename)
         if (
-                    re.search("[\w.-]xml$", file_name)
-            ):
-            get_xml_records(filename,)
+                re.search("[\w.-]xml$", file_name)):
+            check_traw(filename,)
 
         is_manifest = file_name in MANIFEST_FILES
         if is_manifest:
