@@ -186,6 +186,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 re.search("[\w.-]py$", file_name)):
                 with open(filename) as f_manifest:
                     print(filename)
+                    print(f_manifest)
                     print(ast.iter_fields(f_manifest.read()))
                     print(ast.dump(ast.parse(f_manifest.read())))
 
