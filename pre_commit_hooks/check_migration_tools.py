@@ -162,6 +162,9 @@ def check_invisible_readonly(xml_file,condition_failed):
 
     return condition_failed
 
+def check_field_type():
+    print("test i am working")
+
 
 def main(argv: Sequence[str] | None = None) -> int:
     condition_failed = True
@@ -191,6 +194,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     print(f_py_file.read())
                     # print(f_manifest.read())
                     print(ast.dump(ast.parse(f_py_file.read())))
+                check_field_type()
 
         #  checks for manifest  file
         is_manifest = file_name in MANIFEST_FILES
