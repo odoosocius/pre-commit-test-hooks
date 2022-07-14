@@ -51,7 +51,6 @@ def version_check(filename, condition_failed):
     """ checking if version is less than 15.0"""
     with open(filename) as f_manifest:
         manifest_dict = ast.literal_eval(f_manifest.read())
-        print("manifest_dict", manifest_dict)
         # returns manifest as dict
         version = manifest_dict.get("version")
         check_versions = odoo_check_versions.get("name_check", {})
@@ -170,6 +169,16 @@ def check_field_type(filename, condition_failed):
         py_file_dict = (ast.dump(ast.parse(py_file.read())))
         code = ast.parse(filename, mode="exec")
         print(ast.dump(code))
+    print("using enumarator")
+    with open(filename, 'r') as fp:
+        for l_no, line in enumerate(fp):
+            # search string
+            if 'type' in line:
+                print('string found in a file')
+                print('Line Number:', l_no)
+                print('Line:', line)
+                # don't look for next lines
+                break
 
 
 def main(argv: Sequence[str] | None = None) -> int:
