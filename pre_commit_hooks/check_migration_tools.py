@@ -178,8 +178,8 @@ def check_field_type(py_file, condition_failed):
         '/%s//*[%s]' % (tag, directive_attrs)
         for tag in ('odoo', 'openerp')
     )
-        # doc = ast.parse("", f_obj)
-    doc = get_xml_records(py_file)
+    with open(py_file, "rb") as f_obj:
+        doc = etree.parse(f_obj)
     for node in doc.xpath(xpath):
         directive = next(
             iter(set(node.attrib) & deprecated_directives))
@@ -222,7 +222,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     # print(f_manifest.read())
                     print(ast.dump(ast.parse(f_py_file.read())))
                     print("function calling")
-                condition_failed = check_field_type(f_py_file, condition_failed)
+                condition_failed = check_field_type(filename, condition_failed)
 
         #  checks for manifest  file
         is_manifest = file_name in MANIFEST_FILES
