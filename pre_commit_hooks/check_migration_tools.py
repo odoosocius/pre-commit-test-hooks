@@ -171,9 +171,11 @@ def check_field_type(filename, condition_failed):
         print(ast.dump(code))
     print("using enumarator")
     with open(filename, 'r') as fp:
+        print("file opened as r")
         for l_no, line in enumerate(fp):
+            print("enumarator loop")
             # search string
-            if 'type' in line:
+            if 'execution_enabled' in line:
                 print('string found in a file')
                 print('Line Number:', l_no)
                 print('Line:', line)
