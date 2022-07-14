@@ -177,19 +177,13 @@ def check_field_type(py_file, condition_failed):
         for tag in ('odoo', 'openerp')
     )
     print("xpath", xpath)
+    file = open(py_file)
+    print("read file function", file.read())
+    if("type" in file.read()):
+        print("word found")
+    else:
+        print("not found")
 
-    # doc = get_xml_records(py_file)
-    # for node in doc.xpath(xpath):
-    #     directive = next(
-    #         iter(set(node.attrib) & deprecated_directives))
-    #     if directive:
-    #         condition_failed = True
-    #         print(
-    #             f'[WF813].'
-    #             f'{py_file}: {node.sourceline} contain type,'
-    #             f' type has been replaced by '
-    #             f'move_type'
-    #         )
     return condition_failed
 
 
