@@ -177,8 +177,6 @@ def check_field_type(filename, condition_failed):
             # search string
             if 'type' in line:
                 print('string found in a file')
-                print('Line Number:', l_no)
-                print('Line:', line)
                 # don't look for next lines
                 break
 
