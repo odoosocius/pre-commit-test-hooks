@@ -168,12 +168,12 @@ def check_field_type(filename, condition_failed):
     with open(filename) as py_file:
         py_file_dict = (ast.dump(ast.parse(py_file.read())))
         code = ast.parse(filename, mode="exec")
-        print(ast.dump(code))
     print("using enumarator")
     with open(filename, 'r') as fp:
         print("file opened as r")
         for l_no, line in enumerate(fp):
-            print("enumarator loop")
+            print("enumarator loop", l_no)
+            print("enumarator loop line", line)
             # search string
             if 'execution_enabled' in line:
                 print('string found in a file')
