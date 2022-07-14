@@ -170,24 +170,26 @@ def check_field_type(py_file, condition_failed):
         'type',
     }
     directive_attrs = '|'.join('@%s' % d for d in deprecated_directives)
+    print("directive_attrs", directive_attrs)
     # checking for pattern
     xpath = '|'.join(
-        '/%s//template//*[%s]' % (tag, directive_attrs)
+        '/%s//*[%s]' % (tag, directive_attrs)
         for tag in ('odoo', 'openerp')
     )
+    print("xpath", xpath)
 
-    doc = get_xml_records(py_file)
-    for node in doc.xpath(xpath):
-        directive = next(
-            iter(set(node.attrib) & deprecated_directives))
-        if directive:
-            condition_failed = True
-            print(
-                f'[WF813].'
-                f'{py_file}: {node.sourceline} contain type,'
-                f' type has been replaced by '
-                f'move_type'
-            )
+    # doc = get_xml_records(py_file)
+    # for node in doc.xpath(xpath):
+    #     directive = next(
+    #         iter(set(node.attrib) & deprecated_directives))
+    #     if directive:
+    #         condition_failed = True
+    #         print(
+    #             f'[WF813].'
+    #             f'{py_file}: {node.sourceline} contain type,'
+    #             f' type has been replaced by '
+    #             f'move_type'
+    #         )
     return condition_failed
 
 
