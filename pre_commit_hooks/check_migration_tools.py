@@ -166,7 +166,7 @@ def check_field_type(filename, condition_failed):
     """Function to check py file contain type or not"""
     print("runing check_field_type")
     with open(filename) as py_file:
-        py_file_dict = (ast.dump(ast.parse(filename.read())))
+        py_file_dict = (ast.dump(ast.parse(py_file.read())))
         print("dict py", py_file_dict)
 
 
