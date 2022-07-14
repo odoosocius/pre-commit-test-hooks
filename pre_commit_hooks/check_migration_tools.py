@@ -4,6 +4,7 @@ import argparse
 import re
 import os.path
 import ast
+import mmap
 from lxml import etree
 import astroid
 from distutils.version import LooseVersion
@@ -164,21 +165,23 @@ def check_invisible_readonly(xml_file,condition_failed):
 
 def check_field_type(filename, condition_failed):
     """Function to check py file contain type or not"""
-    print("runing check_field_type")
-    with open(filename) as py_file:
-        py_file_dict = (ast.dump(ast.parse(py_file.read())))
-        code = ast.parse(filename, mode="exec")
-    print("using enumarator")
-    with open(filename, 'r') as fp:
-        print("file opened as r")
-        for l_no, line in enumerate(fp):
-            print("enumarator loop", l_no)
-            print("enumarator loop line", line)
-            # search string
-            if 'type' in line:
-                print('string found in a file')
-                # don't look for next lines
-                break
+    # print("using enumarator")
+    # with open(filename, 'r') as fp:
+    #     print("file opened as r")
+    #     for l_no, line in enumerate(fp):
+    #         print("enumarator loop", l_no)
+    #         print("enumarator loop line", line)
+    #         # search string
+    #         if 'type' in line:
+    #             condition_failed = True
+    #             print('string found in a file')
+    print("using mmap")
+    with open(filename, 'rb', 0) as file:
+        s = mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ)
+        if s.find(b'type') != -1:
+            condition_failed = True
+            print('string exist in a file')
+    return condition_failed
 
 
 def main(argv: Sequence[str] | None = None) -> int:
