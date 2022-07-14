@@ -151,9 +151,6 @@ def check_invisible_readonly(xml_file,condition_failed):
     for node in doc.xpath(xpath):
         directive = next(
             iter(set(node.attrib) & deprecated_directives))
-        print("invisible directive", directive)
-        print("invisible node", node)
-        print("node.sourceline", node.sourceline)
         if directive:
             condition_failed = True
             print(
@@ -165,9 +162,12 @@ def check_invisible_readonly(xml_file,condition_failed):
     return condition_failed
 
 
-def check_field_type():
+def check_field_type(filename, condition_failed):
     """Function to check py file contain type or not"""
     print("runing check_field_type")
+    with open(filename) as py_file:
+        py_file_dict = ast.literal_eval(py_file.read())
+        print("dict py", py_file_dict)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -199,7 +199,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     # print(f_manifest.read())
                     print(ast.dump(ast.parse(f_py_file.read())))
                     print("function calling")
-                check_field_type()
+                condition_failed = check_field_type(filename, condition_failed)
 
         #  checks for manifest  file
         is_manifest = file_name in MANIFEST_FILES
