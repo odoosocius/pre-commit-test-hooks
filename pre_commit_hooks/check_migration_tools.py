@@ -178,8 +178,7 @@ def check_field_type(py_file, condition_failed):
         '/%s//*[%s]' % (tag, directive_attrs)
         for tag in ('odoo', 'openerp')
     )
-    with open(py_file, "rb") as f_obj:
-        doc = etree.parse(f_obj)
+    doc = etree.parse(py_file)
     print("doc check_field_type", doc)
     print("xpath", xpath)
 
