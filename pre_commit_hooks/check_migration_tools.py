@@ -178,6 +178,8 @@ def check_field_type(py_file, condition_failed):
         '/%s//*[%s]' % (tag, directive_attrs)
         for tag in ('odoo', 'openerp')
     )
+    doc = parse_xml(py_file)
+    print("doc check_field_type", doc)
     print("xpath", xpath)
 
     return condition_failed
