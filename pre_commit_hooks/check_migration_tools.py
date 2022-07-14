@@ -171,14 +171,6 @@ def check_field_type(py_file, condition_failed):
     deprecated_directives = {
         'type',
     }
-    directive_attrs = '|'.join('@%s' % d for d in deprecated_directives)
-    print("directive_attrs", directive_attrs)
-    # checking for pattern
-    xpath = '|'.join(
-        '/%s//*[%s]' % (tag, directive_attrs)
-        for tag in ('odoo', 'openerp')
-    )
-    print("xpath", xpath)
 
     return condition_failed
 
