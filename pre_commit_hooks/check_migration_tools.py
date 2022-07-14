@@ -214,8 +214,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         if (
                 re.search("[\w.-]py$", file_name)):
                 with open(filename) as f_py_file:
+                    print("filename")
                     print(filename)
+                    print("f_py_file")
                     print(f_py_file)
+                    print("reading file")
                     print(f_py_file.read())
                     # print(f_manifest.read())
                     print(ast.dump(ast.parse(f_py_file.read())))
