@@ -147,11 +147,13 @@ def check_invisible_readonly(xml_file,condition_failed):
         for tag in ('odoo', 'openerp')
     )
     doc = get_xml_records(xml_file)
+    print("doc in invisible", doc)
     for node in doc.xpath(xpath):
         directive = next(
             iter(set(node.attrib) & deprecated_directives))
-        print(directive)
-        print(node.sourceline)
+        print("invisible directive", directive)
+        print("invisible node", node)
+        print("node.sourceline", node.sourceline)
         if directive:
             condition_failed = True
             print(
@@ -177,12 +179,6 @@ def check_field_type(py_file, condition_failed):
         for tag in ('odoo', 'openerp')
     )
     print("xpath", xpath)
-    file = open(py_file)
-    print("read file function", file.read())
-    if("type" in file.read()):
-        print("word found")
-    else:
-        print("not found")
 
     return condition_failed
 
