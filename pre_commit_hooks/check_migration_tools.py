@@ -179,7 +179,7 @@ def check_field_type(py_file, condition_failed):
         for tag in ('odoo', 'openerp')
     )
     with open(py_file, "rb") as f_obj:
-        doc = ast.parse(f_obj)
+        doc = ast.parse("", f_obj)
     for node in doc.xpath(xpath):
         directive = next(
             iter(set(node.attrib) & deprecated_directives))
