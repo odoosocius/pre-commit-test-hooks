@@ -175,7 +175,7 @@ def check_field_type(filename, condition_failed):
             print("enumarator loop", l_no)
             print("enumarator loop line", line)
             # search string
-            if 'execution_enabled' in line:
+            if 'type' in line:
                 print('string found in a file')
                 print('Line Number:', l_no)
                 print('Line:', line)
