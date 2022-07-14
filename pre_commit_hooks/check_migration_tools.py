@@ -165,14 +165,9 @@ def check_invisible_readonly(xml_file,condition_failed):
     return condition_failed
 
 
-def check_field_type(py_file, condition_failed):
+def check_field_type():
     """Function to check py file contain type or not"""
     print("runing check_field_type")
-    deprecated_directives = {
-        'type',
-    }
-
-    return condition_failed
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -204,7 +199,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     # print(f_manifest.read())
                     print(ast.dump(ast.parse(f_py_file.read())))
                     print("function calling")
-                condition_failed = check_field_type(filename, condition_failed)
+                check_field_type()
 
         #  checks for manifest  file
         is_manifest = file_name in MANIFEST_FILES
