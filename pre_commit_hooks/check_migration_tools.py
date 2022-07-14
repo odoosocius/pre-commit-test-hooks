@@ -167,6 +167,7 @@ def check_field_type(filename, condition_failed):
     print("runing check_field_type")
     with open(filename) as py_file:
         py_file_dict = (ast.dump(ast.parse(py_file.read())))
+        print("py keys", py_file_dict.keys())
         code = ast.parse(filename, mode="exec")
         print(ast.dump(code))
 
