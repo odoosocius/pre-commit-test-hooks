@@ -163,7 +163,8 @@ def check_invisible_readonly(xml_file,condition_failed):
     return condition_failed
 
 def check_field_type():
-    print("test i am working")
+    print("start work")
+
 
 
 def main(argv: Sequence[str] | None = None) -> int:
