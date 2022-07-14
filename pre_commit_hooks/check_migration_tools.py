@@ -182,7 +182,7 @@ def check_field_type(py_file, condition_failed):
         doc = etree.parse(f_obj)
     for node in doc.xpath(xpath):
         directive = next(
-            iter(set(node.attrib) & deprecated_directives))
+            iter(set(node) & deprecated_directives))
     print("directive in check_field_type", directive)
     print("doc check_field_type", doc)
     print("xpath", xpath)
