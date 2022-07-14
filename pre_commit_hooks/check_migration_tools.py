@@ -178,7 +178,12 @@ def check_field_type(py_file, condition_failed):
         '/%s//*[%s]' % (tag, directive_attrs)
         for tag in ('odoo', 'openerp')
     )
-    doc = parse_xml(py_file)
+    with open(py_file, "rb") as f_obj:
+        doc = ast.parse(f_obj)
+    for node in doc.xpath(xpath):
+        directive = next(
+            iter(set(node.attrib) & deprecated_directives))
+    print("directive in check_field_type", directive)
     print("doc check_field_type", doc)
     print("xpath", xpath)
 
