@@ -162,9 +162,33 @@ def check_invisible_readonly(xml_file,condition_failed):
 
     return condition_failed
 
-def check_field_type():
-    print("start work")
 
+def check_field_type(py_file, condition_failed):
+    """Function to check py file contain type or not"""
+    print("runing check_field_type")
+    deprecated_directives = {
+        'type',
+    }
+    directive_attrs = '|'.join('@%s' % d for d in deprecated_directives)
+    # checking for pattern
+    xpath = '|'.join(
+        '/%s//template//*[%s]' % (tag, directive_attrs)
+        for tag in ('odoo', 'openerp')
+    )
+
+    doc = get_xml_records(py_file)
+    for node in doc.xpath(xpath):
+        directive = next(
+            iter(set(node.attrib) & deprecated_directives))
+        if directive:
+            condition_failed = True
+            print(
+                f'[WF813].'
+                f'{py_file}: {node.sourceline} contain type,'
+                f' type has been replaced by '
+                f'move_type'
+            )
+    return condition_failed
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -195,7 +219,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                     print(f_py_file.read())
                     # print(f_manifest.read())
                     print(ast.dump(ast.parse(f_py_file.read())))
-                check_field_type()
+                    print("function calling")
+                condition_failed = check_field_type(filename, condition_failed)
 
         #  checks for manifest  file
         is_manifest = file_name in MANIFEST_FILES
