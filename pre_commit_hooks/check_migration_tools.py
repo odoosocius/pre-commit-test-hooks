@@ -162,8 +162,8 @@ def check_invisible_readonly(xml_file,condition_failed):
             )
 
     return condition_failed
-
-def check_class():
+#
+# def check_class():
 
 def check_field_type(filename, condition_failed):
     """Function to check py file contain type or not"""
