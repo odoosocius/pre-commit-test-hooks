@@ -165,23 +165,34 @@ def check_invisible_readonly(xml_file,condition_failed):
 
 def check_field_type(filename, condition_failed):
     """Function to check py file contain type or not"""
-    # print("using enumarator")
-    # with open(filename, 'r') as fp:
-    #     print("file opened as r")
-    #     for l_no, line in enumerate(fp):
-    #         print("enumarator loop", l_no)
-    #         print("enumarator loop line", line)
-    #         # search string
-    #         if 'type' in line:
-    #             condition_failed = True
-    #             print('string found in a file')
-    print("using mmap")
-    with open(filename, 'rb', 0) as file:
-        s = mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ)
-        if s.find(b'type') != -1:
-            condition_failed = True
-            print('string exist in a file')
+    print("using enumarator")
+    for name,obj in inspect.getmembers(foo):
+        if inspect.isclass(obj):
+            print(obj)
+            print(name)
+           
+    with open(filename, 'r') as fp:
+        
+        print("file opened as r")
+        for l_no, line in enumerate(fp):
+            print("enumarator loop", l_no)
+            print("enumarator loop line", line)
+            # search string
+            if 'type' in line:
+                condition_failed = True
+                print('string found in a file')
+
     return condition_failed
+
+
+# def check_state_type(filename, condition_failed):
+#     print("using mmap")
+#     with open(filename, 'rb', 0) as file:
+#         s = mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ)
+#         if s.find(b'state') != -1:
+#             condition_failed = True
+#             print('string exist in a file')
+#     return condition_failed
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -214,6 +225,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     print(ast.dump(ast.parse(f_py_file.read())))
                     print("function calling")
                 condition_failed = check_field_type(filename, condition_failed)
+                # condition_failed = check_state_type(filename, condition_failed)
 
         #  checks for manifest  file
         is_manifest = file_name in MANIFEST_FILES
