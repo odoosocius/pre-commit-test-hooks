@@ -186,14 +186,15 @@ def check_field_type(filename, condition_failed):
     return condition_failed
 
 
-# def check_state_type(filename, condition_failed):
-#     print("using mmap")
-#     with open(filename, 'rb', 0) as file:
-#         s = mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ)
-#         if s.find(b'state') != -1:
-#             condition_failed = True
-#             print('string exist in a file')
-#     return condition_failed
+def check_state_type(filename, condition_failed):
+    print("using mmap")
+    with open(filename, 'rb', 0) as file:
+        s = mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ)
+        print(s)
+        if s.find(b'state') != -1:
+            condition_failed = True
+            print('string exist in a file')
+    return condition_failed
 
 
 def main(argv: Sequence[str] | None = None) -> int:
