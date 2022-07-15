@@ -219,8 +219,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     # print(f_manifest.read())
                     # print(ast.dump(ast.parse(f_py_file.read())))
                     print("function calling")
-                condition_failed = check_field_type(filename, condition_failed)
-                condition_failed = check_state_type(filename, condition_failed)
+                condition_failed = check_field_selection_add(filename, condition_failed)
 
         #  checks for manifest  file
         is_manifest = file_name in MANIFEST_FILES
