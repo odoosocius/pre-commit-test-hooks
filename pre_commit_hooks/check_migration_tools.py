@@ -169,8 +169,18 @@ def check_field_type(filename, condition_failed):
     """Function to check py file contain type or not"""
     print("using enumarator")
 
+    print(re.findall("^class.*:$", fp.read(), re.DOTALL))
+
+    with open(filename, "r") as fobj:
+        text = fobj.read()
+
+        print(re.findall("^class.*:$", text, re.DOTALL))
+
+
+
+
     with open(filename, 'r') as fp:
-        print(re.findall("^class.*:$", fp.read(), re.DOTALL))
+
         
         print("file opened as r")
         class_start=False,
