@@ -4,6 +4,7 @@ import argparse
 import re
 import os.path
 import ast
+import sys, inspect
 import mmap
 from lxml import etree
 import astroid
@@ -170,7 +171,7 @@ def check_field_type(filename, condition_failed):
         if inspect.isclass(obj):
             print(obj)
             print(name)
-           
+
     with open(filename, 'r') as fp:
         
         print("file opened as r")
@@ -219,10 +220,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                 re.search("[\w.-]py$", file_name)):
                 with open(filename) as f_py_file:
                     print(filename)
-                    print(f_py_file)
-                    print(f_py_file.read())
+                    # print(f_py_file)
+                    # print(f_py_file.read())
                     # print(f_manifest.read())
-                    print(ast.dump(ast.parse(f_py_file.read())))
+                    # print(ast.dump(ast.parse(f_py_file.read())))
                     print("function calling")
                 condition_failed = check_field_type(filename, condition_failed)
                 # condition_failed = check_state_type(filename, condition_failed)
