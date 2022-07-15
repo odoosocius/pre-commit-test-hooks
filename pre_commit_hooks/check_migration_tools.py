@@ -4,12 +4,7 @@ import argparse
 import re
 import os.path
 import ast
-import sys, inspect
-import mmap
 from lxml import etree
-import astroid
-from distutils.version import LooseVersion
-from pathlib import Path
 from typing import Sequence
 
 MANIFEST_FILES = [
@@ -20,25 +15,25 @@ MANIFEST_FILES = [
 ]
 
 odoo_check_versions = {
-            'name_check': {
-                'min_odoo_version': '15.0',
-                'max_odoo_version': '15.0',
-            }
-        }
+    'name_check': {
+        'min_odoo_version': '15.0',
+        'max_odoo_version': '15.0',
+    }
+}
 
-DFTL_VALID_ODOO_VERSIONS = [ '15.0',
-]
+DFTL_VALID_ODOO_VERSIONS = ['15.0',
+                            ]
 
 
-def check_migration_folder(dir_list,condition_failed):
+def check_migration_folder(dir_list, condition_failed):
     """checks if the uploded module has migration folder
-    Returns: The value condition_failed = true if module hs 
-    migration folder  
+    Returns: The value condition_failed = true if module hs
+    migration folder
     """
     for directory in dir_list:
-        path = os.getcwd()+'/'+directory
+        path = os.getcwd() + '/' + directory
         for path in os.listdir(path):
-            if path =='migrations':
+            if path == 'migrations':
                 condition_failed = True
                 print(
                     f'[MF813].'
@@ -106,11 +101,10 @@ def get_xml_records(xml_file, model=None, more=None):
     else:
         more_filter = more
     doc = parse_xml(xml_file)
-    # root = etree.fromstring(doc, etree.HTMLParser())
     return doc
 
 
-def check_traw(xml_file,condition_failed):
+def check_traw(xml_file, condition_failed):
     """Function to check if the xml contains t-raw or not """
     deprecated_directives = {
         't-raw',
@@ -137,7 +131,7 @@ def check_traw(xml_file,condition_failed):
     return condition_failed
 
 
-def check_invisible_readonly(xml_file,condition_failed):
+def check_invisible_readonly(xml_file, condition_failed):
     """check if view contain invisible or readonly without attrs"""
     deprecated_directives = {
         'readonly',
@@ -164,75 +158,30 @@ def check_invisible_readonly(xml_file,condition_failed):
     return condition_failed
 
 
-def check_field_selection_add(filename, condition_failed):
-    """Function to check py file contain selection add"""
-    print("using enumarator")
-    selection_start = False
-    ondelete = False
-    lineno = 0
-    found_line = False
-    with open(filename, 'r') as fp:
-        for l_no, line in enumerate(fp):
-            if 'selection_add=[' in line:
-                selection_start = True
-                lineno = l_no
-                found_line = line
-            if selection_start:
-                if 'ondelete' in line:
-                    ondelete = True
-            if selection_start and found_line != line:
-                if line == '' or 'fields.' in line and not ondelete:
-                    print(
-                        f'[SF814].'
-                        f'{filename}: {lineno} selection_add '
-                        f' does not contain ondelete'
-                    )
-    return condition_failed
-
-
 def main(argv: Sequence[str] | None = None) -> int:
-    condition_failed = True
-    
+    condition_failed = False
+
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*')
     args = parser.parse_args(argv)
-    asfrgss = (getattr(parser, 'args', None) or []) + \
-        (getattr(parser, 'keywords', None) or [])
-    print(asfrgss)
     dir_list = []
     for filename in args.filenames:
         # os.path.basename to get path
         file_name = os.path.basename(filename)
         # search for files that end with .xml
-        # if (
-        #         re.search("[\w.-]xml$", file_name)):
-        #     condition_failed = check_traw(filename, condition_failed)
-        #     condition_failed = check_invisible_readonly(
-        #         filename, condition_failed)
-        # # search for files that end with .py
         if (
-                re.search("[\w.-]py$", file_name)):
-                condition_failed = check_field_selection_add(filename, condition_failed)
+                re.search("[\w.-]xml$", file_name)):
+            condition_failed = check_traw(filename, condition_failed)
+            condition_failed = check_invisible_readonly(
+                filename, condition_failed)
 
         #  checks for manifest  file
         is_manifest = file_name in MANIFEST_FILES
         if is_manifest:
-            condition_failed = version_check(filename,condition_failed)
+            condition_failed = version_check(filename, condition_failed)
         dir1 = os.path.dirname(filename).split('/')
         if dir1[0] != '':
             dir_list.append(dir1[0])
     dir_list = set(dir_list)
-    # condition_failed = check_migration_folder(dir_list,condition_failed)
-
-
-        # if '' in dir:
-        #     base = os.path.basename(filename)
-        #     if (
-        #             re.match("^test.*py$", base) or
-        #             base == 'common.py'
-        #     ):
-        #         with open(filename, 'rb') as f:
-        #             missing_tag = check_decorator(
-        #                 f, missing_tag, filename=filename
-        #             )
+    condition_failed = check_migration_folder(dir_list, condition_failed)
     return condition_failed
