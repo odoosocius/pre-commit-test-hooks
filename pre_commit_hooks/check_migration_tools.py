@@ -169,15 +169,13 @@ def check_field_type(filename, condition_failed):
     """Function to check py file contain type or not"""
     print("using enumarator")
 
-
+    data = re.findall("^class.*:$", filename.read(), re.DOTALL)
+    print(data)
     with open(filename, 'r') as fp:
         
         print("file opened as r")
         class_start=False,
         class_block=[]
-        data = re.findall("^class.*:$",f.read(), re.DOTALL):
-        print(data)
-
         for l_no, line in enumerate(fp):
             print("enumarator loop", l_no)
             print("enumarator loop line", line)
