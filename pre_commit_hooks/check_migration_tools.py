@@ -171,7 +171,6 @@ def check_field_type(filename, condition_failed):
 
     with open(filename, 'r') as fp:
         print(re.findall("^class.*:$", fp.read(), re.DOTALL))
-        print(data)
         
         print("file opened as r")
         class_start=False,
