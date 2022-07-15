@@ -162,48 +162,31 @@ def check_invisible_readonly(xml_file,condition_failed):
             )
 
     return condition_failed
-#
-# def check_class():
 
-def check_field_type(filename, condition_failed):
-    """Function to check py file contain type or not"""
+
+def check_field_selection_add(filename, condition_failed):
+    """Function to check py file contain selection add"""
     print("using enumarator")
-
-    # print(re.findall("^class.*:$", fp.read(), re.DOTALL))
-
-    with open(filename, "r") as fobj:
-        text = fobj.read()
-
-        print(re.findall("^class.*:$", text, re.DOTALL))
-
-
-
-
+    selection_start = False
+    ondelete = False
+    lineno = 0
+    found_line = False
     with open(filename, 'r') as fp:
-
-        
-        print("file opened as r")
-        class_start=False,
-        class_block=[]
         for l_no, line in enumerate(fp):
-            print("enumarator loop", l_no)
-            print("enumarator loop line", line)
-            # search string   selection_add=[
-            if 'type' in line:
-                condition_failed = True
-                print('string found in a file')
-
-    return condition_failed
-
-
-def check_state_type(filename, condition_failed):
-    print("using mmap")
-    with open(filename, 'rb', 0) as file:
-        s = mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ)
-        print(s)
-        if s.find(b'state') != -1:
-            condition_failed = True
-            print('string exist in a file')
+            if 'selection_add=[' in line:
+                selection_start = True
+                lineno = l_no
+                found_line = line
+            if selection_start:
+                if 'ondelete' in line:
+                    ondelete = True
+            if selection_start and found_line != line:
+                if line == '' or 'fields.' in line and not ondelete:
+                    print(
+                        f'[SF814].'
+                        f'{filename}: {lineno} selection_add '
+                        f' does not contain ondelete'
+                    )
     return condition_failed
 
 
