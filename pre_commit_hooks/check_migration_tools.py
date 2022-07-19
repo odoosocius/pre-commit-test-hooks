@@ -25,6 +25,33 @@ DFTL_VALID_ODOO_VERSIONS = ['15.0',
                             ]
 
 
+
+def check_field_selection_add(filename, condition_failed):
+    """Function to check py file contain selection add"""
+    print("using enumarator")
+    selection_start = False
+    ondelete = False
+    lineno = 0
+    found_line = False
+    with open(filename, 'r') as fp:
+        for l_no, line in enumerate(fp):
+            if 'selection_add=[' in line:
+                selection_start = True
+                lineno = l_no
+                found_line = line
+            if selection_start:
+                if 'ondelete' in line:
+                    ondelete = True
+            if selection_start and found_line != line:
+                if line == '' or 'fields.' in line and not ondelete:
+                    print(
+                        f'[SF814].'
+                        f'{filename}: {lineno} selection_add '
+                        f' does not contain ondelete'
+                    )
+    return condition_failed
+
+
 def check_migration_folder(dir_list, condition_failed):
     """checks if the uploded module has migration folder
     Returns: The value condition_failed = true if module hs
