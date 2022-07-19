@@ -37,16 +37,6 @@ def check_field_selection_add(filename, condition_failed):
     found_line = False
     with open(filename, 'r') as fp:
         for l_no, line in enumerate(fp):
-            if 'fields.Selection'in line:
-                selection_start = True
-                lineno = l_no
-                found_line = line
-            if selection_start and 'selection_add=[' in line:
-                selection_add = True
-               
-            if selection_start and selection_add and found_line == line:
-                if 'ondelete' not in line:
-                    continue
             if selection_start and found_line != line:
                 if line == '' or 'fields' in line and not ondelete:
                     print(
@@ -58,6 +48,17 @@ def check_field_selection_add(filename, condition_failed):
                     selection_add =False
                     selection_start = False
                     ondelete = False
+            if 'fields.Selection'in line:
+                selection_start = True
+                lineno = l_no
+                found_line = line
+            if selection_start and 'selection_add=[' in line:
+                selection_add = True
+               
+            if selection_start and selection_add and found_line == line:
+                if 'ondelete' not in line:
+                    continue
+            
 
 
     return condition_failed
