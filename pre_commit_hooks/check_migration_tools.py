@@ -31,18 +31,22 @@ def check_field_selection_add(filename, condition_failed):
     print("using enumarator")
     print(filename)
     selection_start = False
+    selection_add = False
     ondelete = False
     lineno = 0
     found_line = False
     with open(filename, 'r') as fp:
         for l_no, line in enumerate(fp):
-            if 'selection_add=[' in line:
+            if 'fields.Selection'in line:
                 selection_start = True
                 lineno = l_no
                 found_line = line
-            if selection_start:
-                if 'ondelete' in line:
-                    ondelete = True
+            if selection_start and 'selection_add=[' in line:
+                selection_add = True
+               
+            if selection_start and selection_add and found_line == line:
+                if 'ondelete' not in line:
+                    continue
             if selection_start and found_line != line:
                 if line == '' or 'fields' in line and not ondelete:
                     print(
@@ -51,8 +55,9 @@ def check_field_selection_add(filename, condition_failed):
                         f' does not contain ondelete'
                     )
                     condition_failed =True
+                    selection_add =False
                     selection_start = False
-                    ondelete = True
+                    ondelete = False
 
 
     return condition_failed
