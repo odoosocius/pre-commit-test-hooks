@@ -29,6 +29,7 @@ DFTL_VALID_ODOO_VERSIONS = ['15.0',
 def check_field_selection_add(filename, condition_failed):
     """Function to check py file contain selection add"""
     print("using enumarator")
+    print(filename)
     selection_start = False
     ondelete = False
     lineno = 0
