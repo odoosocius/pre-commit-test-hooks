@@ -43,12 +43,17 @@ def check_field_selection_add(filename, condition_failed):
                 if 'ondelete' in line:
                     ondelete = True
             if selection_start and found_line != line:
-                if line == '' or 'fields.' in line and not ondelete:
+                if line == '' or 'fields' in line and not ondelete:
                     print(
                         f'[SF814].'
                         f'{filename}: {lineno} selection_add '
                         f' does not contain ondelete'
                     )
+                    condition_failed =True
+                    selection_start = False
+                    ondelete = True
+
+
     return condition_failed
 
 
