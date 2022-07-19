@@ -186,7 +186,7 @@ def check_invisible_readonly(xml_file, condition_failed):
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    condition_failed = False
+    condition_failed = True
 
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*')
@@ -201,6 +201,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             condition_failed = check_traw(filename, condition_failed)
             condition_failed = check_invisible_readonly(
                 filename, condition_failed)
+        if (
+                re.search("[\w.-]py$", file_name)):
+                condition_failed = check_field_selection_add(filename, condition_failed)
 
         #  checks for manifest  file
         is_manifest = file_name in MANIFEST_FILES
